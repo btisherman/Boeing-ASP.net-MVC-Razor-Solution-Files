@@ -1,0 +1,417 @@
+﻿<div class="wip-detail-wrapper" ng-class="{fullscreen: vm.mode === 'full'}" export-pdf="vm.detailPDFRemote" busy="vm.pdfBusy" options="vm.pdfOptions">
+    <branding-header>
+        <header-title>
+            <h2>Order Details for {{vm.id}} <export-pdf-button click="vm.exportPDF()" busy="vm.pdfBusy"></export-pdf-button></h2>
+        </header-title>
+    </branding-header>
+    <h2 class="text-center no-margin"></h2>
+    <div ng-show="!vm.details">{{vm.status}}</div>
+    <div class="wip-detail-results" ng-show="vm.details">
+        <div class="row">
+            <div class="col-md-7 wip-left-column">
+                <div class="wip-details">
+                    <div class="wip-cat-heading wip-cat-heading-{{vm.details['Tool Type'] | removeSpaces}} full-border">
+                        <span>
+                            {{vm.details['Tool Type']}}
+                        </span>
+                    </div>
+                    <div class="wip-inline" style="margin-right:0">
+                        <!--First Row-->
+                        <div class="voffset">
+                            <div class="wip-condensed-table wip-inline wip-orderinfo">
+                                <table class="table table-bordered table-condensed">
+                                    <tr>
+                                        <td class="wip-label text-center">Order ID</td>
+                                        <td class="wip-label text-center">Rev</td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5 class="no-margin">{{vm.details['Order ID']}}</h5></td>
+                                        <td><h5 class="no-margin text-center">{{vm.details.Rev}}</h5></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="wip-inline wip-toolnumber">
+                                <div class="wip-label">
+                                    <span>Tool Number</span>
+                                </div>
+                                <div>
+                                    <a title="Open in REDARS" ng-href="https://redars.web.boeing.com/redars/services/DisplayPSTDocUnitList?documentNumber={{vm.details['Tool Number']}}&unitType=DWG&unitId=1&partialDocNumber=false" target="_blank">
+                                        <h5 class="no-margin">
+                                            {{vm.details['Tool Number']}}
+                                        </h5>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="wip-inline wip-effectivity">
+                                <div class="wip-label">
+                                    <span>Effectivity</span>
+                                </div>
+                                <div class="text-center">
+                                    {{vm.details.Effectivity}}
+                                </div>
+                            </div>
+                            <div class="wip-inline wip-activityid">
+                                <div class="wip-label">
+                                    <span>Activity ID</span>
+                                </div>
+                                <div>
+                                    {{vm.details.ActivityID}}
+                                </div>
+                            </div>
+                            <div class="wip-inline wip-cc">
+                                <div class="wip-label">
+                                    <span>CC</span>
+                                </div>
+                                <div>
+                                    {{vm.details.ACCP}}
+                                </div>
+                            </div>
+                            <div class="wip-inline wip-serial">
+                                <div class="wip-label">
+                                    <span>Serial Number</span>
+                                </div>
+                                <div>
+                                    {{vm.details['Serial Number']}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="voffset">
+                            <div class="wip-inline middle">
+                                <div>
+                                    <h5 class="wip-title">{{(vm.details['Tool Name']) || '-'}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="voffset">
+                            <div class="wip-inline">
+                                <div class="wip-inline wip-condensed-table wip-hourinfo">
+                                    <table class="table table-bordered table-condensed">
+                                        <tr>
+                                            <td style="text-align:center" colspan="2" class="wip-label">Hours</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wip-label">Estimate</td>
+                                            <td class="wip-label">Actual</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>{{vm.details.TotalEst}}</span></td>
+                                            <td ng-class="{'wip-background-alert': vm.details['Actual Est'] > vm.details.TotalEst}"><span>{{vm.details['Actual Est']}}</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="wip-inline">
+                                <div class="wip-inline wip-condensed-table wip-originfo">
+                                    <table class="table table-bordered table-condensed">
+                                        <tr>
+                                            <td style="text-align:center" colspan="2" class="wip-label">Created/Validated</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wip-label wip-orig">Date</td>
+                                            <td class="wip-label wip-aging">Aging</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>{{((vm.details['Created Date'] || vm.details['Validation Date']) | date:'dd MMM yy') ||'-'}}</span></td>
+                                            <td><span>{{vm.getAging((vm.details['Created Date'] || vm.details['Validation Date']), vm.details['Actual Complete'])}}</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="wip-inline">
+                                <div class="wip-inline wip-condensed-table wip-orderdateinfo">
+                                    <table class="table-condensed">
+                                        <tr class="table-header">
+                                            <td class="wip-label" style="min-width: 50px"></td>
+                                            <td class="wip-label bordered" style="min-width: 70px">Start</td>
+                                            <td class="wip-label bordered" style="min-width: 70px">Complete</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wip-label">Schedule</td>
+                                            <td ng-class="{'wip-background-alert': vm.datePast(vm.details['Scheduled Start']) && !vm.details['Actual Start']}"><span>{{(vm.details['Scheduled Start'] | date:'dd MMM yy') || '-'}}</span></td>
+                                            <td ng-class="{'wip-background-alert': vm.datePast(vm.details['Scheduled Complete']) && !vm.details['Actual Complete']}"><span>{{(vm.details['Scheduled Complete'] | date:'dd MMM yy') || '-'}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wip-label">Actual</td>
+                                            <td><span>{{(vm.details['Actual Start'] | date:'dd MMM yy') || '-'}}</span></td>
+                                            <td><span>{{(vm.details['Actual Complete'] | date:'dd MMM yy') || '-'}}</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="wip-inline">
+                                <div class="wip-inline wip-condensed-table wip-ecdtable">
+                                    <table class="table-condensed">
+                                        <tr>
+                                            <td class="wip-label" style="min-width: 60px; border: none">* ECD</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wip-ecd-value text-center" ng-class="{'wip-background-alert': vm.datePast(vm.details['Supplier ECD']) && !vm.details['Actual Complete']}">{{(vm.details['Supplier ECD'] | date:'d MMM') || '-'}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="voffset">
+                            <div class="wip-inline wip-gateinfo">
+                                <table>
+                                    <tr>
+                                        <td style="min-width: 50px; border: none; font-size: smaller"><a href="https://onepppm.web.boeing.com/onepppm/app/documents/show?refer=search&id=BPI-3369" target="_blank">BPI-3369</a></td>
+                                        <th style="min-width: 80px">G1</th>
+                                        <th style="min-width: 80px">Stress</th>
+                                        <th style="min-width: 80px">G2</th>
+                                        <th style="min-width: 80px">G3</th>
+                                        <th style="min-width: 80px">G4</th>
+                                        <th style="min-width: 80px">CMA</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="wip-label" style="border: none">Schedule</td>
+                                        <td ng-class="{'wip-background-alert': vm.datePast(vm.details['Sch_PDR']) && !vm.details['PDR']}">{{(vm.details['Sch_PDR'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td ng-class="{
+                                                'wip-background-alert': vm.datePast(vm.details['Sch_Stress']) && !vm.details['Stress'],
+                                                'wip-inactive-cell': vm.details['Stress_Req'] === -1,
+                                                'wip-highlight-cell': vm.details['Stress_Req'] === 1
+                                                }">
+                                            {{(vm.details['Sch_Stress'] | date:'dd MMM yy') || '-'}}
+                                        </td>
+                                        <td ng-class="{'wip-background-alert': vm.datePast(vm.details['Sch_CDR']) && !vm.details['CDR']}">{{(vm.details['Sch_CDR'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td ng-class="{'wip-background-alert': vm.datePast(vm.details['Sch_FDR']) && !vm.details['FDR']}">{{(vm.details['Sch_FDR'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td ng-class="{'wip-background-alert': vm.datePast(vm.details['Sch_Chk']) && !vm.details['Chk']}">{{(vm.details['Sch_Chk'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td ng-class="{'wip-background-alert': vm.datePast(vm.details['Sch_CMA']) && !vm.details['Released to CMA']}">{{(vm.details['Sch_CMA'] | date:'dd MMM yy') || '-'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wip-label" style="border: none">Actual</td>
+                                        <td>{{(vm.details['PDR'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td ng-class="{
+                                                'wip-inactive-cell': vm.details['Stress_Req'] === -1,
+                                                'wip-highlight-cell': vm.details['Stress_Req'] === 1
+                                                }">
+                                            {{(vm.details['Stress'] | date:'dd MMM yy') || '-'}}
+                                        </td>
+                                        <td>{{(vm.details['CDR'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td>{{(vm.details['FDR'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td>{{(vm.details['Chk'] | date:'dd MMM yy') || '-'}}</td>
+                                        <td>{{(vm.details['Released to CMA'] | date:'dd MMM yy') || '-'}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="voffset">
+                            <div class="wip-info-centered">
+                                <div class="wip-inline middle">
+                                    <span title="Status" class="wip-detail-status">{{vm.details['Plan Status']}}</span>
+                                </div>
+                                <div class="wip-inline wip-percentcomp">
+                                    <div class="wip-label">
+                                        <span>* % Comp</span>
+                                    </div>
+                                    <div class="wip-value {{vm.details['Order Start Status']}}">
+                                        {{vm.details['ETVS %'] + '%'}}
+                                    </div>
+                                </div>
+                                <div class="wip-inline middle">
+                                    <span title="Program" class="wip-detail-program">{{vm.details['Program']}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wip-ops">
+                    <h4 style="display: inline-block">Order Operations <a title="View In ETVS" target="_blank" ng-href="http://nwp.web.boeing.com//DotNet/MiscForms/StLouisParentOperations.aspx?ramac={{vm.id}}&Region=PugetSound&Btype=BCA" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-globe"></i></a></h4>
+                    <div style="display: inline-block; padding: 2px" class="wip-active-operation">Active Operation</div>
+                    <div style="display: inline-block; padding: 2px" class="wip-inactive-operation">Complete Operation</div>
+                    <div ng-show="!vm.ops.length">No operations found.</div>
+                    <table ng-show="vm.ops.length">
+                        <tr>
+                            <th style="min-width: 50px">Op #</th>
+                            <th style="min-width: 60px">Status</th>
+                            <th style="min-width: 60px">Start</th>
+                            <th style="min-width: 60px">Complete</th>
+                            <th style="min-width: 80px">Held For</th>
+                            <th style="min-width: 70px">Work Area</th>
+                        </tr>
+                        <tbody ng-repeat="item in vm.ops | orderBy:'OperNo'" ng-class="vm.getOpStyle(item)">
+                            <tr>
+                                <td>{{item.OperNo}}</td>
+                                <td>{{item.Status_Ready}}</td>
+                                <td>{{(item.DATESTARTPLAN | date:'dd MMM yy') || '-'}}</td>
+                                <td>{{(item.DATECOMPPLAN | date:'dd MMM yy') || '-'}}</td>
+                                <td>{{item.HoldCode}}</td>
+                                <td>{{item.WorkArea}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="wip-ops-description">
+                                        <span>{{item.DESCRIPTION}}</span>
+                                        <div class="wip-ops-strip"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5 wip-right-column">
+                <h4 style="float:left">* Statement of Work</h4><h4 title="Project" class="wip-project-text" style="float:right">{{vm.details['Tooling Project']}}</h4>
+                <div style="height: 100px; overflow: auto; border: 1px solid darkgray; padding: 5px;clear:both">
+                    <span class="wip-sow" ng-bind-html="vm.details.SOW"></span>
+                </div>
+                <h4 style="float:left">* Notes</h4><h4 style="float:right" title="PST" class="wip-highvis">{{tool.PST || '-'}}</h4>
+                <div class="wip-notes detail-notes">
+                    <div class="wip-strip {{vm.details['Order Start Status']}}" title="Schedule Health: {{vm.details['Order Start Status']}}">
+                        {{ vm.details['Order Start Status'] | limitTo:1 }}
+                    </div>
+                    <div class="detail-value">
+                        <span class="wip-etvs-notes" ng-bind-html="vm.details['ETVS Notes']"></span>
+                    </div>
+                </div>
+                <div class="wip-input-container">
+                    <div style="float:left">
+                        <div class="wip-stress-box">
+                            <span>Stress Analysis Required</span>
+                            <div class="checkboxes">
+                                <div>
+                                    <label style="position: relative; left: -2px" for="stress-checked-yes">Yes</label>
+                                    <input id="stress-checked-yes" class="custom-style" type="checkbox" ng-model="vm.details['Stress_Req']" ng-true-value="1" ng-false-value="-1" ng-disabled="true" />
+                                    <div class="cb-placeholder"></div>
+                                </div>
+                                <label for="stress-checked-no">No</label>
+                                <input id="stress-checked-no" class="custom-style" type="checkbox" ng-model="vm.details['Stress_Req']" ng-true-value="-1" ng-false-value="1" ng-disabled="true" />
+                                <div class="cb-placeholder"></div>
+                            </div>
+                        </div>
+                        <div class="wip-last-touched">
+                            <div style="margin-top: -5px" class="wip-label">
+                                <span>Last Updated</span>
+                            </div>
+                            <div>
+                                Date: {{(vm.details['Last Update Date'] | date:'d MMM yyyy @ hh:mm a') || '-'}}
+                            </div>
+                            <div>
+                                By: {{vm.details['Last Update BEMS'] || '-'}}
+                            </div>
+                        </div>
+                        <div class="wip-etvs">
+                            <span>* Updated by ETVS</span><a title="View In ETVS" target="_blank" ng-href="http://nwp.web.boeing.com/Asp/Tool.asp?CMD=View&QueryRamac={{vm.id}}&StandardMenu=StandardMenu&Database={{vm.details['Plan Status'] === 'UNV' || vm.details['Plan Status'] === 'SFM' ? 'Active' : 'History'}}" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-globe"></i></a>
+                        </div>
+                    </div>
+                    <div class="wip-people">
+                        <form class="form-horizontal">
+                            <div class="form-group wip-person" ng-repeat="person in ['Designer', 'TIM', 'Checker', 'Releaser']">
+                                <label for="{{person}}" class="wip-person-label control-label">{{person}}</label>
+                                <div class="wip-person-value">
+                                    <input type="text" class="form-control text-center" id="{{person}}" placeholder="-" ng-model="vm.details[person]" ng-disabled="true">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wip-notes">
+        <h4>WIP Status and Action</h4>
+        <div>
+            <div style="border: 1px solid darkgray; height: 100px; overflow: auto; padding: 5px" ng-bind-html="vm.details['WIPNotes']"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="wip-arlog">
+                <h4 style="display: inline-block; margin-right: 15px; margin-bottom: 7px">Related AR Log</h4>
+                <div style="display: inline-block; padding: 2px" class="wip-typecode-SHEAR">Safety</div>
+                <div style="display: inline-block; padding: 2px" class="wip-typecode-Stress">Stress</div>
+                <div style="display: inline-block; padding: 2px" class="wip-typecode-DE_REV">Design Order</div>
+                <div ng-show="!vm.arlog.length">No related AR entries.</div>
+                <table class="table-bordered" ng-show="vm.arlog.length">
+                    <tr>
+                        <th style="min-width: 50px">AR #</th>
+                        <th style="min-width: 60px">Type</th>
+                        <th style="min-width: 50px">Priority</th>
+                        <th style="min-width: 150px">Status Description</th>
+                        <th style="min-width: 115px">Assign Name</th>
+                        <th style="min-width: 60px">ECD</th>
+                    </tr>
+                    <tr ng-repeat="item in vm.arlog" ng-class="{'wip-inactive-row': item.StatusDescription === 'Complete'}">
+                        <td><a target="_blank" ng-href="https://arlog.web.boeing.com/Request_view.cfm?ID={{item['AR #']}}">{{item['AR #']}}</a></td>
+                        <td class="wip-typecode-{{item.TypeCode}}">{{item.TypeCode}}</td>
+                        <td ng-class="{'wip-background-alert': item.Priority === 'WIP' && item.StatusDescription !== 'Complete'}">{{item.Priority}}</td>
+                        <td>{{item.StatusDescription}}</td>
+                        <td>{{item.AssignedToName}}</td>
+                        <td>{{(item.ECD | date:'dd MMM yy') || '-'}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="wip-mesorders">
+                <h4>Open Orders In MES</h4>
+                <span ng-show="!vm.mesorders.length">No Open MES Orders.</span>
+                <table class="table-bordered table-striped" ng-show="vm.mesorders.length">
+                    <tr>
+                        <th style="min-width: 60px">Order ID</th>
+                        <th style="min-width: 40px">Unit</th>
+                        <th style="min-width: 65px">Effectivity</th>
+                        <th style="min-width: 35px">Est</th>
+                        <th style="min-width: 65px">Start</th>
+                        <th style="min-width: 65px">Complete</th>
+                        <th style="min-width: 50px">Status</th>
+                    </tr>
+                    <tr ng-repeat="item in vm.mesorders">
+                        <td><a target="_blank" ng-href="#/wip/{{item['Order ID']}}">{{item['Order ID']}}</a></td>
+                        <td>{{item['Unit']}}</td>
+                        <td>{{item['Effectivity']}}</td>
+                        <td>{{item['TotalEst']}}</td>
+                        <td>{{(item['Scheduled Start'] | date:'dd MMM yy') || '-'}}</td>
+                        <td>{{(item['Scheduled Complete'] | date:'dd MMM yy') || '-'}}</td>
+                        <td>{{item['Plan Status']}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="wip-sat">
+                <h4>Open SAT</h4>
+                <span ng-show="!vm.sats.length">No related SATs.</span>
+                <table class="table-bordered table-striped" ng-show="vm.sats.length">
+                    <tr>
+                        <th style="min-width: 60px">SAT #</th>
+                        <th style="min-width: 60px">Aging</th>
+                        <th style="min-width: 60px">ECD</th>
+                        <th style="min-width: 150px">SAT Bucket</th>
+                    </tr>
+                    <tr ng-repeat="item in vm.sats">
+                        <td><a target="_blank" ng-href="http://satsystem.web.boeing.com/sum/satSummary.aspx?sat={{item['SAT']}}">{{item['SAT']}}</a></td>
+                        <td>{{vm.getAging(item['SAT Date'])}}</td>
+                        <td>{{(item.SatECD | date:'dd MMM yy') || '-'}}</td>
+                        <td>{{item.OrgName}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="wip-ncr">
+                <h4>Open NCRs</h4>
+                <span ng-show="!vm.ncrs.length">No Open NCRs.</span>
+                <table class="table-bordered table-striped" ng-show="vm.ncrs.length">
+                    <tr>
+                        <th style="min-width: 80px">NCR #</th>
+                        <th style="min-width: 60px">Aging</th>
+                        <th style="min-width: 60px">Arrival</th>
+                        <th style="min-width: 100px">NCM Queue</th>
+                    </tr>
+                    <tr ng-repeat="item in vm.ncrs">
+                        <td><a target="_blank" ng-href="http://qads.ca.boeing.com/teradata/ncm/ncm001r.ASP?src=form&envir=PROD&id={{item['NCR']}}">{{item['NCR']}}</a></td>
+                        <td>{{vm.getAging(item['Created_Date'])}}</td>
+                        <td>{{(item['Arrival Date'] | date:'dd MMM yy') || '-'}}</td>
+                        <td>{{item['Queue_Q_INFO']}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <branding-footer></branding-footer>
+    <div class="wip-detail-close hidepdf" ng-click="vm.close()"></div>
+</div>
+<div class="wip-detail-shade" ng-click="vm.close()" ng-class="{fullscreen: vm.mode === 'full'}"></div>

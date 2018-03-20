@@ -1,0 +1,106 @@
+﻿<tvsm-filter-tools table="etvsmetrics" filters="vm.filters" fillfirst="true"></tvsm-filter-tools>
+<div class="row">
+    <div class="col-sm-2 rc-gauge clearfix" ng-repeat="item in vm.gaugeItems" ng-class="{'col-sm-offset-1 main': $index === 0}">
+        <div class="text-center" ng-style="{color: item.topHeading.color}" style="font-size:large">{{item.topHeading.text}}</div>
+        <a ng-if="item.link()" ng-href="{{item.link()}}">
+            <rc-gauge-display value="item.value" trend="item.trend"></rc-gauge-display>
+        </a>
+        <rc-gauge-display ng-if="!item.link" value="item.value" trend="item.trend"></rc-gauge-display>
+        <div class="rc-container">
+            <img ng-src="{{vm.server + '/common/img/icons/' + (item.icon) + '.png'}}" />
+            <div class="rc-label">{{item.label}}</div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-bottom: 5px">
+    <div class="row">
+        <div class="col-sm-1 text-center" style="height:25px" ng-style="{'background-color': item.color}" ng-repeat="item in vm.legendValues">
+            <p ng-style="{color: item.textcolor}">{{item.value}}</p>
+        </div>
+    </div>
+</div>
+<div class="globalmetrics-valuetable">
+    <table ng-if="vm.singleResult">
+        <tr class="header">
+            <th style="min-width:100px">Site</th>
+            <th style="min-width:100px">Program</th>
+            <th style="min-width:100px">Weight</th>
+            <th style="min-width:100px">Overall</th>
+            <th style="min-width:100px">Schedule</th>
+            <th style="min-width:100px">Quality</th>
+            <th style="min-width:100px">Cost</th>
+            <th style="min-width:100px">Forecast</th>
+        </tr>
+        <tr>
+            <td>{{vm.tableData.Site}}</td>
+            <td>{{vm.tableData.Program}}</td>
+            <td>{{vm.tableData.Weight * 100}}%</td>
+            <td ng-class="vm.getCellClass(vm.tableData.Overall)">{{vm.tableData.Overall}}</td>
+            <td ng-class="vm.getCellClass(vm.tableData.Schedule)">{{vm.tableData.Schedule}}</td>
+            <td ng-class="vm.getCellClass(vm.tableData.Quality)">{{vm.tableData.Quality}}</td>
+            <td ng-class="vm.getCellClass(vm.tableData.Cost)">{{vm.tableData.Cost}}</td>
+            <td ng-class="vm.getCellClass(vm.tableData.Forecast)">{{vm.tableData.Forecast}}</td>
+        </tr>
+    </table>
+
+    <table ng-if="!vm.singleResult">
+        <tr class="header">
+            <th style="min-width:100px">Site</th>
+            <th style="min-width:100px">Program</th>
+            <th style="min-width:100px" colspan="2">Weight</th>
+            <th style="min-width:100px" colspan="2">Overall</th>
+            <th style="min-width:100px" colspan="2">Schedule</th>
+            <th style="min-width:100px" colspan="2">Quality</th>
+            <th style="min-width:100px" colspan="2">Cost</th>
+            <th style="min-width:100px" colspan="2">Forecast</th>
+        </tr>
+        <tbody ng-repeat="(site, programs) in vm.tableData">
+            <tr ng-repeat="program in programs.values">
+                <td ng-if="$index === 0" rowspan="{{programs.values.length}}" style="font-size:x-large">{{program.Site}}</td>
+                <td>{{program.Program}}</td>
+                <td ng-if="$index === 0" rowspan="{{programs.values.length}}">{{programs.Weight * 100 | number:0}}%</td>
+                <td>{{program.Weight * 100}}%</td>
+                <td ng-class="vm.getCellClass(programs.Overall)" ng-if="$index === 0" rowspan="{{programs.values.length}}">{{programs.Overall | number:0}}</td>
+                <td ng-class="vm.getCellClass(program.Overall)">{{program.Overall}}</td>
+                <td ng-class="vm.getCellClass(programs.Schedule)" ng-if="$index === 0" rowspan="{{programs.values.length}}">{{programs.Schedule | number:0}}</td>
+                <td ng-class="vm.getCellClass(program.Schedule)">{{program.Schedule}}</td>
+                <td ng-class="vm.getCellClass(programs.Quality)" ng-if="$index === 0" rowspan="{{programs.values.length}}">{{programs.Quality | number:0}}</td>
+                <td ng-class="vm.getCellClass(program.Quality)">{{program.Quality}}</td>
+                <td ng-class="vm.getCellClass(programs.Cost)" ng-if="$index === 0" rowspan="{{programs.values.length}}">{{programs.Cost | number:0}}</td>
+                <td ng-class="vm.getCellClass(program.Cost)">{{program.Cost}}</td>
+                <td ng-class="vm.getCellClass(programs.Forecast)" ng-if="$index === 0" rowspan="{{programs.values.length}}">{{programs.Forecast | number:0}}</td>
+                <td ng-class="vm.getCellClass(program.Forecast)">{{program.Forecast}}</td>
+            </tr>
+        </tbody>
+        <!--<tr>
+            <td rowspan="3">EVT</td>
+            <td>747/767</td>
+            <td rowspan="3">.52</td>
+            <td>.11</td>
+            <td style="background-color:orange" rowspan="3">4</td>
+            <td style="background-color:orange">7</td>
+            <td style="background-color:green" rowspan="3">8</td>
+            <td style="background-color:green">7</td>
+            <td style="background-color:red" rowspan="3">1</td>
+            <td style="background-color:red">1</td>
+            <td style="background-color:orange" rowspan="3">4</td>
+            <td style="background-color:red">3</td>
+            <td style="background-color:orange" rowspan="3">6</td>
+            <td style="background-color:orange">5</td>
+        </tr>
+        <tr>
+            <td>777</td>
+            <td>.13</td>
+            <td style="background-color:red">3</td>
+            <td style="background-color:green">7</td>
+            <td style="background-color:red">1</td>
+        </tr>
+        <tr>
+            <td>777-9</td>
+            <td>.12</td>
+            <td style="background-color:orange">5</td>
+            <td style="background-color:orange">6</td>
+            <td style="background-color:red">1</td>
+        </tr>-->
+    </table>
+</div>

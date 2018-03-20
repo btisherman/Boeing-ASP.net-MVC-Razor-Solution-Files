@@ -1,0 +1,125 @@
+﻿    .axis path,
+    .axis line {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1px;
+        shape-rendering: crispEdges;
+    }
+
+svg, div {
+	margin: 0;
+	padding: 0;
+	display:block;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;							
+    padding: 2px;				
+    font: 12px sans-serif;
+    color: black;		
+    background: lightsteelblue;	
+    border: 0;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+svg.GanttRow {
+    background-color:#F5F5F5;
+}
+
+svg .backgroundRect {
+    fill: white;
+}
+
+svg .today {
+stroke: red;
+stroke-width: 0.5px;
+}
+
+svg .totalbar{
+    fill:#008080;
+}
+
+svg .suppdate {
+    stroke:none;
+    fill: green;
+}
+
+svg .delivery {
+    stroke:blue;
+    stroke-width:2px;
+    opacity: 0;
+    }
+
+svg .slideline {
+    stroke-width:4px;
+    stroke: red;
+    }
+
+svg .cafline{
+    stroke:none;
+    fill:black;
+}
+
+svg .signoff{
+    stroke-width:4px;
+    stroke:purple;
+}
+
+svg .operation{
+    stroke-width:4px;
+    stroke: #3966c7;
+}
+
+svg .titlearea{
+    fill:#F5F5F5;
+}
+
+svg .title.Status{
+    fill: purple;
+}
+
+svg .percentbar{
+    fill:#39E600;
+}
+svg .percentbar.behind{
+    fill: orange;
+}
+
+svg .percentbar.late{
+    fill: #eb0000;
+}
+
+.labelBackground {
+    fill: #F5F5F5;
+    opacity: 0.9;
+}
+
+svg text{
+    font-size:small;
+}
+
+@media all {
+	.page-break	{ display: none; }
+}
+
+@media print {
+	.page-break	{ display: block; page-break-before: always; }
+}
+
+
+.ganttApp .legend .panel-group{
+    margin-bottom: 0;
+}
+
+.ganttApp .legend .panel-title a{
+    color:#0033a1;
+}
+
+.ganttApp .legend .table{
+    margin-bottom: 0;
+}
+
+.ganttApp svg{
+    shape-rendering: auto;
+}

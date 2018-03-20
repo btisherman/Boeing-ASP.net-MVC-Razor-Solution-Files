@@ -1,0 +1,217 @@
+﻿<div class="opensow-detail-shade" ng-click="vm.close()"></div>
+<div class="opensow-detail-wrapper" ng-class="{'show-all': !vm.selectedType}" export-pdf="vm.detailPDFRemote" busy="vm.pdfBusy" options="vm.pdfOptions">
+    <div ng-repeat="selectedTool in vm.tools">
+        <branding-header hide-pictures="$index !== 0">
+            <header-title>
+                <h2>
+                    {{selectedTool.caption}} for {{selectedTool.Tool}} <export-pdf-button ng-show="$index === 0" click="vm.exportPDF()" busy="vm.pdfBusy"></export-pdf-button>
+                </h2>
+            </header-title>
+            <header-body>
+                <div style="text-align: center">
+                    <span class="query-label">Program: </span><span class="query-value">{{selectedTool.Program}}</span>
+                    <span class="query-label">PST: </span><span class="query-value">{{selectedTool.PST}}</span>
+                    <span class="query-label">TVSM Last Updated: </span><span class="query-value">{{vm.tvsmLastUpdate | date:'dd MMM yyyy @ h:mm a'}}</span>
+                </div>
+            </header-body>
+        </branding-header>
+        <div ng-if="!vm.selectedType" class="summary">
+            <div class="summary-description">
+                <div class="abbreviations">
+                    UNV = Unvalidated<br />
+                    SFM = Validated
+                </div>
+                <div class="ccv-blocks">
+                    <div ng-if="selectedTool.IsSafe" class="ccv safety">SAF</div>
+                    <div ng-if="selectedTool.IsComm" class="ccv committed">C - E</div>
+                </div>
+            </div>
+            <table class="open-sow summary-table" style="margin-left:1px">
+                <thead>
+                    <tr>
+                        <td style="border:1px solid darkgray;font-weight:bold;color:black" colspan="2">MES</td>
+                        <td style="min-width:70px"></td> <!--AR-->
+                        <td style="min-width:70px"></td> <!--SAT-->
+                        <td style="min-width:70px"></td> <!--NCR-->
+                        <td style="min-width:80px"></td> <!--Total-->
+                    </tr>
+                    <tr>
+                        <td style="min-width:40px;border:1px solid darkgray;font-weight:bold">UNV</td>
+                        <td style="min-width:40px;border:1px solid darkgray;font-weight:bold">SFM</td>
+                        <td style="border:1px solid darkgray;font-weight:bold;color:black">AR Log</td>
+                        <td style="border:1px solid darkgray;font-weight:bold;color:black">SAT</td>
+                        <td style="border:1px solid darkgray;font-weight:bold;color:black">NCR</td>
+                        <td style="border:1px solid darkgray;font-weight:bold;color:black">Total</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid darkgray" colspan="2">{{vm.getDetailHours(selectedTool, 'MES') | number}} Hrs</td>
+                        <td style="border:1px solid darkgray">{{vm.getDetailHours(selectedTool, 'AR') | number}} Hrs</td>
+                        <td style="border:1px solid darkgray">{{vm.getDetailHours(selectedTool, 'SAT') | number}} Hrs</td>
+                        <td style="border:1px solid darkgray">{{vm.getDetailHours(selectedTool, 'NCR') | number}} Hrs</td>
+                        <td style="border:1px solid darkgray">{{vm.getDetailHours(selectedTool, 'MES') + vm.getDetailHours(selectedTool, 'AR') + vm.getDetailHours(selectedTool, 'SAT') + vm.getDetailHours(selectedTool, 'NCR') | number}} Hrs</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tool in [selectedTool]">
+                        <td class="value count nohover"><span ng-if="tool.UNV.length" ng-click="vm.viewDetails(tool, 'UNV')">{{tool.UNV.length}}</span></td>
+                        <td class="value count nohover"><span ng-if="tool.SFM.length" ng-click="vm.viewDetails(tool, 'SFM')">{{tool.SFM.length}}</span></td>
+                        <td class="value count nohover"><span ng-if="tool.AR.length" ng-click="vm.viewDetails(tool, 'AR')">{{tool.AR.length}}</span></td>
+                        <td class="value count nohover"><span ng-if="tool.SAT.length" ng-click="vm.viewDetails(tool, 'SAT')">{{tool.SAT.length}}</span></td>
+                        <td class="value count nohover"><span ng-if="tool.NCR.length" ng-click="vm.viewDetails(tool, 'NCR')">{{tool.NCR.length}}</span></td>
+                        <td class="value count nohover">{{tool.UNV.length + tool.SFM.length + tool.AR.length + tool.SAT.length + tool.NCR.length}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mes-orders" ng-if="(!vm.selectedType && selectedTool.UNV.concat(selectedTool.SFM).length) || vm.selectedType === 'UNV' || vm.selectedType === 'SFM' ">
+            <div class="floating-header-container hidepdf" style="z-index:11;position:fixed"></div>
+            <table tvsm-sticky-header=".floating-header-container" scroll-element=".opensow-detail-wrapper">
+                <thead>
+                    <tr>
+                        <td style="min-width:90px;font-weight:bold">
+                            <span ng-if="vm.selectedType">Order ID</span>
+                            <span class="table-caption" ng-if="!vm.selectedType">MES Order</span>
+                        </td>
+                        <td style="min-width:50px;font-weight:bold">DETAIL</td>
+                        <td style="min-width:30px">Unit</td>
+                        <td style="min-width:150px;font-weight:bold">CCV</td>
+                        <td style="min-width:30px;font-weight:bold">RC</td>
+                        <td style="min-width:150px">Effectivity</td>
+                        <td style="min-width:80px">Status</td>
+                        <td style="min-width:80px">Hours</td>
+                        <td style="min-width:150px">Sch Comp</td>
+                        <td style="min-width:150px">Held For</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="detail in selectedTool.UNV.concat(selectedTool.SFM) | orderBy:['Unit', 'Key_ID']">
+                        <td style="font-weight:bold">
+                            <div style="position:relative">
+                                <div class="opensow-health {{detail.Health}}"></div>
+                                <a style="margin-left:10px" title="Open Details" target="_blank" ng-href="{{vm.server}}/#/wip/{{detail.Key_ID}}/full">{{detail.Key_ID}}</a>
+                            </div>
+                        </td>
+                        <td>{{detail.Detail}}</td>
+                        <td>{{detail.Unit}}</td>
+                        <td class="ccv-{{detail.CCV}}" style="font-weight:bold">{{detail.CCV}}</td>
+                        <td style="font-weight:bold">{{detail.RC}}</td>
+                        <td>{{detail.Effectivity}}</td>
+                        <td class="status-{{detail.Plan_Status}}" style="font-weight:bold">{{detail.Plan_Status}}</td>
+                        <td>{{detail.Total_Est}}</td>
+                        <td ng-class="vm.getScheduleClass(detail.Sch_Comp)" style="font-weight:bold">{{detail.Sch_Comp | parseDate:'dd MMM yy'}}</td>
+                        <td style="color:red">{{detail.Held_for}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--AR Log-->
+        <div class="ar-log" ng-if="(!vm.selectedType && selectedTool.AR.length) || vm.selectedType === 'AR'">
+            <div class="floating-header-container hidepdf" style="z-index:11;position:fixed"></div>
+            <table tvsm-sticky-header=".floating-header-container" scroll-element=".opensow-detail-wrapper">
+                <thead>
+                    <tr>
+                        <td style="border:none"></td>
+                        <td style="border:none"></td>
+                        <td style="border:none"></td>
+                        <td style="border:1px solid darkgray" colspan="2">Assigned</td>
+                        <td style="border:none"></td>
+                    </tr>
+                    <tr>
+                        <td style="min-width:90px">
+                            <span ng-if="vm.selectedType">AR #</span>
+                            <span class="table-caption" ng-if="!vm.selectedType">AR Log</span>
+                        </td>
+                        <td style="min-width:90px">ECD</td>
+                        <td style="min-width:200px">Status Description</td>
+                        <td style="min-width:150px;border:1px solid darkgray">Name</td>
+                        <td style="min-width:180px;border:1px solid darkgray">Date</td>
+                        <td style="min-width:180px">Last Update</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="detail in selectedTool.AR | orderBy:['Unit', 'Key_ID']">
+                        <td style="font-weight:bold">
+                            <a title="Open AR Log" target="_blank" ng-href="https://arlog.web.boeing.com/Request_view.cfm?ID={{detail.Key_ID}}">{{detail.Key_ID}}</a>
+                        </td>
+                        <td ng-class="vm.getScheduleClass(detail.ECD)" style="font-weight:bold">{{detail.ECD | date:'dd MMM yy'}}</td>
+                        <td style="font-weight:bold;color:#008300">{{detail.CCV}}</td>
+                        <td>{{detail.AssignedToName}}</td>
+                        <td>{{detail.AssignDate | date:'dd MMM yyyy @ h:mm a'}}</td>
+                        <td>{{detail.UpdateDate | date:'dd MMM yyyy @ h:mm a'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--SAT-->
+        <div class="sat" ng-if="(!vm.selectedType && selectedTool.SAT.length) || vm.selectedType === 'SAT'">
+            <div class="floating-header-container hidepdf" style="z-index:11;position:fixed"></div>
+            <table tvsm-sticky-header=".floating-header-container" scroll-element=".opensow-detail-wrapper">
+                <thead>
+                    <tr>
+                        <td style="border:none"></td>
+                        <td style="border:none"></td>
+                        <td style="border:none"></td>
+                        <td style="border:1px solid darkgray" colspan="2">Last Update</td>
+                    </tr>
+                    <tr>
+                        <td style="min-width:90px">
+                            <span ng-if="vm.selectedType">SAT #</span>
+                            <span class="table-caption" ng-if="!vm.selectedType">SAT</span>
+                        </td>
+                        <td style="min-width:90px">ECD</td>
+                        <td style="min-width:250px">Bucket</td>
+                        <td style="min-width:180px;border:1px solid darkgray">Date</td>
+                        <td style="min-width:150px;border:1px solid darkgray">Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="detail in selectedTool.SAT | orderBy:['Unit', 'Key_ID']">
+                        <td style="font-weight:bold">
+                            <a title="Open SAT Summary" target="_blank" ng-href="http://satsystem.web.boeing.com/sum/satSummary.aspx?sat={{detail.Key_ID}}">{{detail.Key_ID}}</a>
+                        </td>
+                        <td ng-class="vm.getScheduleClass(detail.ECD)" style="font-weight:bold">{{detail.ECD | date:'dd MMM yy'}}</td>
+                        <td style="font-weight:bold;color:#008300">{{detail.OrgPassedTo}}: {{detail.ProblemType}}</td>
+                        <td>{{detail.UpdateDate | date:'dd MMM yyyy @ h:mm a'}}</td>
+                        <td>{{detail.AssignedToName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--NCR-->
+        <div class="ncr" ng-if="(!vm.selectedType && selectedTool.NCR.length) || vm.selectedType === 'NCR'">
+            <div class="floating-header-container hidepdf" style="z-index:11;position:fixed"></div>
+            <table tvsm-sticky-header=".floating-header-container" scroll-element=".opensow-detail-wrapper">
+                <thead>
+                    <tr>
+                        <td style="min-width:100px">
+                            <span ng-if="vm.selectedType">NCR #</span>
+                            <span class="table-caption" ng-if="!vm.selectedType">NCR</span>
+                        </td>
+                        <td style="min-width:30px">Rev</td>
+                        <td style="min-width:80px">Arrival</td>
+                        <td style="min-width:180px">Last Update</td>
+                        <td style="min-width:200px">Assigned To</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="detail in selectedTool.NCR | orderBy:'Key_ID'">
+                        <td style="font-weight:bold">
+                            <a title="Open NCR" target="_blank" ng-href="http://qads.ca.boeing.com/teradata/ncm/ncm001r.ASP?src=form&envir=PROD&id={{detail.Key_ID}}&mime%20=">
+                                {{detail.Key_ID}}
+                            </a>
+                        </td>
+                        <td>{{detail.Rev}}</td>
+                        <td>{{detail.AssignDate | date:'dd MMM yy'}}</td>
+                        <td>{{detail.UpdateDate | date:'dd MMM yyyy @ h:mm a'}}</td>
+                        <td rowspan="2">{{detail.AssignedToName}}</td>
+                    </tr>
+                    <tr ng-repeat-end>
+                        <td colspan="4" style="padding-right:10px;color:#008300;text-align:right">{{detail.Queue_ID}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <branding-footer></branding-footer>
+    <div class="opensow-detail-close hidepdf" ng-click="vm.close()"></div>
+</div>

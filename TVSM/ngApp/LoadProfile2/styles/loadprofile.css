@@ -1,0 +1,29 @@
+﻿/*.loadprofile-data .nv-x text { display: none; }*/
+
+.chart-data th{
+    background-color: #bebebe;
+    min-width: 60px;
+}
+.chart-data td{
+    height: 35px !important;
+}
+.cell-container {
+    padding: 0 !important;
+    height: 100%;
+}
+.chart-categories{
+    position: relative;
+    background-color: #fafafa;
+    padding: 8px;
+    padding-left: 10px;
+    height: 100%;
+    border: none !important;
+}
+
+.chart-categories .color-stripe{
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 2px;
+}

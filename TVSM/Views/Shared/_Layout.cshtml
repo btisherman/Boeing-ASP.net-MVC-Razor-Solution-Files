@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <!-- Horizontal Navigation Template version 7.2 -->
+    <title>TVSM</title>
+    <meta name="Description" content="Boeing Responsive Template 7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Name BEMSID" />
+    <meta name="robots" content="All" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    @Styles.Render("~/css/bootstrap")
+    @RenderSection("styles", required: false)
+    <link rel="icon" type="image/x-icon" href="//brandcenter.web.boeing.com/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="//brandcenter.web.boeing.com/favicon.ico" />
+    <link rel="stylesheet" href="~/common/css/isteven-multi-select.css">
+
+
+    <!-- HTML5 shim for IE backwards compatibility -->
+    <!--[if lt IE 9]>
+          <script src="@Url.Content("~/common/js/html5shiv.js")"></script>
+          <script src="@Url.Content("~/common/js/respond.min.js")"></script>
+    <![endif] -->
+
+    <meta name="description" content="Tooling Value Stream Manager" />
+    @*<base href="@(System.Web.Configuration.WebConfigurationManager.AppSettings["Server"] + "/")">*@
+</head>
+
+<body ng-app="myApp" modal-no-scroll>
+    <div class="wrapper">
+        <!-- begin header -->
+        <div id="header" class="container-fluid hidden-xs">
+            <div class="row" id="main-header">
+                <nav id="main-header-text" class="navbar navbar-default hidden-xs" role="navigation">
+                    <div class="navbar-text navbar-left">
+                        <div><a href="http://inside.boeing.com" title="Boeing Home"><img class="" src="~/common/img/boeinglogo.gif" alt="Boeing"></a></div>
+                    </div>
+                    <span class="under-construction">IN DEVELOPMENT</span><tvsm-page-title></tvsm-page-title>
+                    <!--request a brand zone here: http://intranetstyleguide.web.boeing.com/banners/#request -->
+                    <div class="navbar-right" style="margin-right:5px"><a href="~/#/"><img src="~/common/img/TVSM.png" height="72"></a></div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- logo header for small views -->
+        <!-- hidden on the desktop -->
+        <div class="container visible-xs">
+            <header class="row brandzone">
+                <brandlogo><a href="http://inside.boeing.com" title="Boeing Home"><img src="~/common/img/boeinglogo_sm.gif" alt="Boeing Home" /></a></brandlogo>
+                <hamburger class="pull-right" role="navigation">
+                    <button type="button" id="xs-menu-icon" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-list">
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                        <span class="icon-bar">
+                        </span>
+                    </button>
+                </hamburger>
+                <search_icon class="pull-right">
+                    <button type="button" class="btn btn-primary navbar-btn navbar-toggle searchmini navbar-right" id="xs-search-button"><img id="xs-search-icon-transparent" class="search-icon-off" src="~/common/img/search_icon_transparent.png" width="22" height="19" alt="Search"></button>
+                </search_icon>
+            </header>
+        </div>
+
+        <!-- begin nav bar -->
+        <div class="navbar-fullwidth default" ng-controller="navCtrl as nc">
+            <div class="container-fluid">
+                <div class="row">
+                    <nav class="navbar navbar-default" id="main-navbar" role="navigation">
+
+                        <!-- begin hamburger and brand header -->
+                        <div class="navbar-header visible-xs">
+                            <!-- begin search -->
+                            <form id="xs-search-form" ng-submit="nc.submitSearch()">
+                                <span class="pull-right">
+                                    <button type="submit" id="xs-search-go-button" class="btn btn-default pull-right">Go</button>
+                                </span>
+                                <div id="xs-search-term">
+                                    <input type="text" id="xs-search-term-input" ng-model="nc.svc.value" class="form-control" placeholder="Search" name="k">
+                                    <h1 class="navbar-brand navbar-text" id="xs-title-text">TVSM<span class="under-construction">IN DEVELOPMENT</span></h1>
+                                </div>
+                                <input type="hidden" name="source" value="ngs" />
+                                <input type="hidden" name="u" value="http://yoursite.web.boeing.com" />
+                            </form>
+                            <!-- end search -->
+                        </div>
+
+                        <!-- begin nav -->
+                        <div class="navbar-collapse collapse" id="main-nav-list">
+                            <div class="col-sm-11 col-md-10">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        @RenderSection("userinfo", required: false)
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav text="Renton WIP" route="/rentonwip"></tvsm-button-nav>
+                                        <tvsm-button-nav disabled="true" text="Estimator" route="/estimator"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+
+                                        <tvsm-button-nav text="WIP Board" route="/wip"></tvsm-button-nav>
+                                        <tvsm-button-nav disabled="true" text="1st Use" route="/firstuse"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav text="Open SOW" route="/opensow"></tvsm-button-nav>
+                                        <tvsm-button-nav text="AR Log" route="/arlog"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav disabled="true" text="SAT" route="/sat"></tvsm-button-nav>
+                                        <tvsm-button-nav disabled="true" text="NCR" route="/ncr"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav disabled="true" text="SHEAR" route="/shear"></tvsm-button-nav>
+                                        <tvsm-button-nav disabled="true" text="---" route="/mes"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav disabled="true" text="ETAC" route="/etac"></tvsm-button-nav>
+                                        <tvsm-button-nav disabled="true" text="---" route="/notdefined"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav text="Release Performance" route="https://ewa-ssrs2012-prd.web.boeing.com/ReportServer/Pages/ReportViewer.aspx?%2fPEMETRICS%2fTVSM%2fModule1&rs:Command=Render" ext="true"></tvsm-button-nav>
+                                        <tvsm-button-nav disabled="true" text="Total Value Stream" route="/totalvaluestream"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav disabled="true" text="Capacity" route="/capacity"></tvsm-button-nav>
+                                        <tvsm-button-nav text="Load" route="/loadprofile"></tvsm-button-nav>
+                                    </li>
+                                    <li>
+                                        <tvsm-button-nav disabled="true" text="Burndown" route="/burndown"></tvsm-button-nav>
+                                        <tvsm-button-nav text="Global Metrics" route="/globalmetrics"></tvsm-button-nav>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- end nav -->
+                            <!-- begin search -->
+                            <div class="col-sm-1 col-md-2">
+                                <span class="navbar-right visible-sm" id="nav-search-icon">
+                                    <a href="#" data-toggle="modal" data-target="#search_modal"><img src="~/common/img/searchbutton.jpg"></a>
+                                </span>
+                                <form class="navbar-form navbar-right hidden-xs hidden-sm form-search form-inline" id="nav-search-form" ng-submit="nc.submitSearch()">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control header-search-input search-query" ng-model="nc.svc.value" placeholder="Search" name="k" id="srch-term">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-link header-search-icon">
+                                                <!--<span class="glyphicon glyphicon-search"></span>--><img src="~/common/img/searchbutton.jpg" alt="Search">
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div ng-show="nc.svc.busy" class="busy-spinner"><div class="spinner-icon"></div></div>
+                                    <input type="hidden" name="source" value="ngs" />
+                                    <input type="hidden" name="u" value="http://yoursite.web.boeing.com/" />
+                                </form>
+                                <!-- end search -->
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- body -->
+        <div class="container-fluid body-content">
+            <tvsm-alert-display></tvsm-alert-display>
+            @RenderBody()
+        </div>
+        <!-- begin footer  -->
+        <div id="footer" class="footer-wrapper">
+            <div class="container">
+                <section id="footer-content" class="row">
+                    <div class="col-sm-3">
+                        <h5>NAVIGATE</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="~/#/">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </section>
+                <section id="footer-copyright" class="row col-sm-12">
+                    <h6>
+                        <a href="http://inside.boeing.com/">Inside Boeing</a> | <a href="http://my.boeing.com">MyBoeing</a> |
+                        <a href="javascript:emailLink('michael.j.gardner')">Website Feedback</a> |
+                        <a href="javascript:emailLink('michael.j.gardner')">Content Owner</a> <br>
+                        Version: 1.0.5 | Last update <!-- #BeginDate format:Am3 -->5/4/2016 @@ 12:01 PM<!-- #EndDate -->
+                        <br />
+                        Copyright &copy;
+                        <span id="yyyy">
+                        </span>
+                        Boeing.
+                    </h6>
+                </section>
+            </div>
+        </div>
+        <!-- end footer -->
+        <!-- begin search -->
+        <div ng-controller="searchModalCtrl as sc" class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-labelledby="Search" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Search</h4>
+                    </div>
+                    <form id="modal-search-box" class="navbar-form" ng-submit="sc.submitSearch()">
+                        <div class="modal-body">
+                            <input type="text" class="form-control" placeholder="Search" name="k" id="srch-term" ng-model="sc.svc.value">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" name="Search" value="Search">
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- end search -->
+        <!--  #### END MODAL WINDOWS #######################################################################################  -->
+        <!-- Bootstrap core JavaScript -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/common/bootstrap/js/bootstrap.min.js"></script>
+        <script src="~/common/bootstrap/css/bootstrap.min.css"></script>
+        <script src="~/common/jquery/jquery.min.js"></script>
+        <script src="~/scripts/angular.js"></script>
+        @*<script src="~/common/jquery/jquery.mobile-1.3.2.min.js"></script>*@
+        <script src="~/common/js/boeing.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+        <script src="~/common/js/isteven-multi-select.js"></script>     
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>
+
+@functions{
+    public string getBaseFromConfig(string url){
+        var basePath = System.Web.Configuration.WebConfigurationManager.AppSettings["Server"];
+        return url.Replace("~", basePath);
+    }
+}

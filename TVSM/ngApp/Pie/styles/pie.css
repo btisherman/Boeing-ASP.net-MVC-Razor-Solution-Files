@@ -1,0 +1,67 @@
+﻿.YellowPie{
+    fill: #EEEE00; /*stoplight-yellow*/
+    background-color: #EEEE00;
+}
+.RedPie{
+    fill: red; /*stoplight-red*/
+    background-color: red;
+}
+.RedLabel{
+        fill: white;
+    font-weight: bold;
+}
+
+.GreenPie{
+    fill: lawngreen; /*stoplight-green*/ 
+    background-color: lawngreen;
+}
+.GrayPie{
+    fill: gray; /*stoplight-gray*/
+        color: white;
+}
+.GrayLabel{
+    fill: white; /*stoplight-gray*/
+}
+.arc {
+  stroke: #ffffff;
+}
+.mainPie{
+    margin: auto;
+    width: 35%;
+}
+.mainPie svg{
+    margin: auto;
+}
+.miniPie{
+    margin: auto;
+    width: 80%;
+}
+.sliceLabel{
+    pointer-events:none;
+}
+
+.chartLabel{
+    font-size:1.5em;
+}
+@media only screen and (max-width: 767px) {
+    /* For mobile phones: */
+    .mainPie {
+        width: 80%;
+    }
+}
+.legend .panel{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.legend .panel-group{
+    margin-bottom: 0;
+}
+
+.legend .panel-title a{
+    color:#0033a1;
+}
+
+.legend .table{
+    margin-bottom: 0;
+}

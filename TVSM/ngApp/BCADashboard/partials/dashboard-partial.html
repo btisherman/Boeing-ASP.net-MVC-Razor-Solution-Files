@@ -1,0 +1,22 @@
+﻿<tvsm-filter-tools filters="vm.filters" control="vm.filterRemote" >
+    <module-head>
+    </module-head>
+    <module-body>
+        <div style="vertical-align: middle">
+        </div>
+    </module-body>
+</tvsm-filter-tools>
+<div class="pie-row top">
+    <h2 class="pie-row-header">SHOP COMPLIANCE</h2>
+    <div class="pie-pan" ng-repeat="pie in vm.pieData">
+        <div class="pie-label">{{pie.label}}</div>
+        <dashboard-pie-chart style="{{$last ? 'margin-right:0' : ''}}"class="pie-multiple" data="pie.data" config="vm.pieConfig" pie-click="vm.pieClick(tools, cat)"></dashboard-pie-chart>
+    </div>
+</div>
+<div class="pie-row bottom">
+    <h2 class="pie-row-header">H/F COMPLIANCE</h2>
+    <div class="pie-pan" ng-repeat="pie in vm.pieData2">
+        <div class="pie-label">{{pie.label}}</div>
+        <dashboard-pie-chart style="{{$last ? 'margin-right:0' : ''}}" class="pie-multiple" data="pie.data" config="vm.pieConfig" pie-click="vm.pieClick()"></dashboard-pie-chart>
+    </div>
+</div>

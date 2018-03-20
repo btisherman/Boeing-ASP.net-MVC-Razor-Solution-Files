@@ -1,0 +1,53 @@
+﻿.pie-multiple{
+    width: 150px;
+    margin-right:10px;
+}
+
+.pie-multiple .totalText{
+    font-weight:bold;
+    font-size:large;
+}
+
+.pie-multiple .totalDescriptionText{
+    font-size:xx-small;
+}
+
+/*.pie-multiple .arc {
+  stroke: black;
+}*/
+
+.pie-row{
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid gray;
+    padding: 10px;
+    height: auto;
+}
+
+.pie-row.top{
+    width: 660px;
+    height: 250px;
+    margin-bottom:10px;
+}
+
+.pie-row.bottom{
+    width: 980px;
+    margin-bottom:10px;
+    overflow: auto;
+}
+
+.pie-pan{
+    float:left;
+}
+
+.pie-row-header{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.pie-label{
+    margin-right:10px;
+    text-align:center;
+    color: black;
+    font-size: large;
+}

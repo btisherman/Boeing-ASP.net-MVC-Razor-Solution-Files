@@ -1,0 +1,65 @@
+/* CSS Document */
+
+/* ################################################################################################################################### */
+/* ####  MEDIA QUERY BREAKPOINTS. MOBILE UP: START SMALLEST TO LARGEST  ############################################################## */
+@media (max-width:320px) {
+}
+/* --------------------------------------------------------------- */
+ @media (min-width:321px) and (max-width:481px) {
+/* add styles here */
+}
+/* --------------------------------------------------------------- */
+ @media (max-width:767px) {
+/* add styles here */
+}
+/* --------------------------------------------------------------- */
+ @media (min-width:768px) {
+/* add styles here */
+	.carousel-main {
+		margin:0;
+		background: url("../img/background.gif") repeat-x scroll left top transparent !important;
+		background-color: #b7b7b7 !important;
+	}
+}
+/* --------------------------------------------------------------- */
+ @media (min-width:768px)and (max-width: 991px) {
+/* add styles here */
+}
+/* --------------------------------------------------------------- */
+ @media (min-width:992px)and (max-width: 1200px) {
+/* add styles here */
+}
+
+/* center the slide images when the screen is wider than 1600px */
+.carousel-main {
+	margin:0;
+}
+.carousel-inner{
+	max-width:1600px;
+	margin-left:auto;
+	margin-right:auto;	
+}
+.carousel-indicators-maxwidth{
+	position:relative;
+	max-width:1600px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.wrapper{
+    padding-bottom:0px;
+}
+
+.dropdown-backdrop {
+    position: static;
+}
+
+.under-construction{
+    font-size: medium;
+    margin-left: 20px;
+    color: red;
+}
+
+#main-header-text .under-construction{
+    font-size: xx-large;
+}

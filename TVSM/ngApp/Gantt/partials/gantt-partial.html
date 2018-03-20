@@ -1,0 +1,13 @@
+﻿<tvsm-filter-tools filters="vm.filters"></tvsm-filter-tools>
+<div ng-hide="vm.tools.length">
+    No tools available.
+</div>
+<div>
+    <!--<accordion class="legend">
+        <accordion-group heading="Chart Legend" is-open="true">
+            <gantt-legend></gantt-legend>
+        </accordion-group>
+    </accordion>-->
+    <gantt-chart config="{query: vm.filterService.currentQuery, link: vm.navETVS}" data="vm.tools"></gantt-chart>
+
+</div>

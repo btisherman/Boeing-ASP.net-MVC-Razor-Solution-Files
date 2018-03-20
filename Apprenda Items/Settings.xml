@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.apprenda.com/SettingsXmlDoc">
+  <Settings>
+    <SettingDefinition name="Application Alias" value="tvsmdev" />
+    <SettingDefinition name="Version Alias" value="v1015" />
+    <SettingDefinition name="Private Root" value="TVSM" />
+    <SettingDefinition name="Extention Filter" value=".sln;.vb;.cs;.h;.cpp;.pdb;.obj;.dep;.idb" />
+    <SettingDefinition name="Build Config" value="Release" />
+    <SettingDefinition name="Archive Output Path" value="C:\Users\cz667c\Desktop\App Versions\TVSM031717-1-FORDEV.zip" />
+    <SettingDefinition name="Application Provisioning Script" value="C:\Users\cz667c\Documents\Visual Studio 2013\Projects\TVSM\ApplicationProvisioning_Script.sql" />
+    <SettingDefinition name="Tenant Provisioning Script" />
+    <SettingDefinition name="Services" value="" />
+    <SettingDefinition name="Version Name" value="1.0.15" />
+  </Settings>
+</root>

@@ -1,0 +1,74 @@
+﻿<tvsm-filter-tools table="opensow" filters="vm.filters" control="vm.filterRemote" ng-class="{'hidden-print': vm.showDetail}" ng-if="!id">
+    <module-head>
+        <a style="margin-right: 5px" href="" ng-click="vm.saveExcel()"><img ng-src="{{vm.server + '/common/img/Excel_Icon.gif'}}" /></a>
+    </module-head>
+    <module-body>
+        <!--<a ng-click="vm.toggleGantt()" href="" class="pull-right">{{(vm.displayGantt ? 'Row' : 'Gantt') + ' View'}}</a>-->
+        <div style="vertical-align: middle">
+            Displaying {{vm.tools.length}} row{{vm.tools.length === 1 ? '' : 's'}}{{vm.hours[0].Qty ? ' of ' + vm.hours[0].Qty : ''}}
+            <span ng-show="vm.nextPage"> (Scroll for <span ng-click="vm.getMore()" style="text-decoration: underline; cursor: pointer">more</span>)</span>
+        </div>
+    </module-body>
+</tvsm-filter-tools>
+<div ng-if="vm.tools.length && !id" style="overflow-x:auto;margin-bottom: 8px" ng-class="{'hidden-print': vm.showDetail}" infinite-scroll="vm.getMore()" infinite-scroll-disabled="!vm.nextPage">
+    <div class="floating-header-container hidepdf"></div>
+    <table class="open-sow" tvsm-sticky-header=".floating-header-container" style="margin-left:1px">
+        <thead>
+            <tr>
+                <td style="min-width:30px"><a ng-show="vm.getMultiple(true)" style="cursor:pointer" ng-click="vm.getMultiple()">View</a></td> <!--Print-->
+                <td style="min-width:222px"><a ng-show="vm.getMultiple(true)" style="cursor:pointer" ng-click="vm.clearPrint()">Clear</a></td> <!--Tool Number-->
+                <td style="min-width:110px"></td> <!--Program-->
+                <td style="min-width:125px"></td> <!--PST-->
+                <td style="min-width:70px"></td> <!--CSV-->
+                <td style="border:1px solid darkgray;font-weight:bold;color:black" colspan="2">MES</td>
+                <td style="min-width:70px"></td> <!--AR-->
+                <td style="min-width:70px"></td> <!--SAT-->
+                <td style="min-width:70px"></td> <!--NCR-->
+                <td style="min-width:80px"></td> <!--Total-->
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="min-width:40px;border:1px solid darkgray;font-weight:bold">UNV</td>
+                <td style="min-width:40px;border:1px solid darkgray;font-weight:bold">SFM</td>
+                <td style="border:1px solid darkgray;font-weight:bold;color:black">AR Log</td>
+                <td style="border:1px solid darkgray;font-weight:bold;color:black">SAT</td>
+                <td style="border:1px solid darkgray;font-weight:bold;color:black">NCR</td>
+                <td style="border:1px solid darkgray;font-weight:bold;color:black">Total</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; color: black;border-bottom:1px solid darkgray">Print</td>
+                <td style="font-weight: bold; color: black;border-bottom:1px solid darkgray">Tool Number</td>
+                <td style="font-weight: bold; color: black;border-bottom:1px solid darkgray">Program</td>
+                <td style="font-weight: bold;border-bottom:1px solid darkgray">PST</td>
+                <td style="font-weight: bold;border-bottom:1px solid darkgray; color: darkred">CCV</td>
+                <td style="border:1px solid darkgray" colspan="2">{{(vm.hours[0].MES || 0) | number}} Hrs</td>
+                <td style="border:1px solid darkgray">{{(vm.hours[0].AR || 0) | number}} Hrs</td>
+                <td style="border:1px solid darkgray">{{(vm.hours[0].SAT || 0) | number}} Hrs</td>
+                <td style="border:1px solid darkgray">{{(vm.hours[0].NCR || 0) | number}} Hrs</td>
+                <td style="border:1px solid darkgray">{{vm.hours[0].MES + vm.hours[0].AR + vm.hours[0].SAT + vm.hours[0].NCR | number}} Hrs</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tool in vm.tools" ng-class="{'row-selected': tool.print}">
+                <td><input type="checkbox" ng-model="tool.print" /></td>
+                <td class="value" style="color: black"><a href="" ng-click="vm.getToolDetails(tool.Tool)">{{tool.Tool}}</a></td>
+                <td class="value" style="color: black">{{tool.Program}}</td>
+                <td class="value">{{tool.PST}}</td>
+                <td style="position: relative">
+                    <div ng-if="tool.CCV_SAFETY" class="ccv safety">SAF</div>
+                    <div ng-if="tool.CCV_COMM" class="ccv committed">C - E</div>
+                </td>
+                <td class="value count"><span ng-click="vm.viewDetails(tool, 'UNV')">{{tool.UNV}}</span></td>
+                <td class="value count"><span ng-click="vm.viewDetails(tool, 'SFM')">{{tool.SFM}}</span></td>
+                <td class="value count"><span ng-click="vm.viewDetails(tool, 'AR')">{{tool.AR}}</span></td>
+                <td class="value count"><span ng-click="vm.viewDetails(tool, 'SAT')">{{tool.SAT}}</span></td>
+                <td class="value count"><span ng-click="vm.viewDetails(tool, 'NCR')">{{tool.NCR}}</span></td>
+                <td class="value count">{{tool.UNV + tool.SFM + tool.AR + tool.SAT + tool.NCR}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

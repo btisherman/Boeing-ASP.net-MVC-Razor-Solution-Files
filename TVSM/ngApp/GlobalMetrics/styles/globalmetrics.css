@@ -1,0 +1,54 @@
+﻿.globalmetrics-valuetable{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow-x:auto;
+}
+
+.globalmetrics-valuetable table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.globalmetrics-valuetable table, 
+.globalmetrics-valuetable tr, 
+.globalmetrics-valuetable td,
+.globalmetrics-valuetable th{
+    border: 1px solid darkgray;
+    border-collapse: collapse;
+}
+
+.globalmetrics-valuetable td,
+.globalmetrics-valuetable th{
+    padding: 5px;
+    text-align: center;
+    color: black;
+    font-weight:bold;
+    vertical-align: middle;
+}
+
+.globalmetrics-valuetable th{
+    font-size: large;
+}
+
+.globalmetrics-valuetable tr.header{
+    background-color: lightsteelblue !important;
+}
+
+.globalmetrics-valuetable tr:nth-child(odd){
+    background-color: #eeeeee;
+}
+
+.globalmetrics-valuetable .cell-danger{
+    background-color: #EA002A;
+    color: white;
+}
+
+.globalmetrics-valuetable .cell-warning{
+    background-color: #FFA400;
+    color: black;
+}
+
+.globalmetrics-valuetable .cell-success{
+    background-color: #81BC00;
+    color: black;
+}

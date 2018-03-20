@@ -1,0 +1,73 @@
+﻿.tvsm-nav-button{
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
+    background: #8497B0;
+    color: white;
+    display: block;
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.tvsm-nav-button:hover{
+    color: black;
+}
+
+.tvsm-nav-button.active-route{
+    background: steelblue;
+}
+
+.tvsm-nav-button.disabled:hover{
+    background: #8497B0;
+    color: white;
+}
+
+
+.rc-gauge{
+    margin-bottom: 10px;
+}
+
+.rc-gauge.main{
+    width: 20%;
+    margin-left:6%;
+}
+
+@media only screen and (max-width: 767px) {
+    /* For mobile phones: */
+    .rc-gauge.main{
+    width: 100%;
+    margin-left:0;
+    }
+}
+.rc-gauge img{
+    float: left;
+    margin-right: 5px;
+    margin-left: 2px;
+    width: 30px;
+    margin-bottom: 15px;
+    margin-top: 4px;
+
+}
+
+.rc-container{
+    margin-top: 5px;
+    width: 150px;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.rc-label{
+    color: #0033a1;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    /*font-size: 1.5vw;
+    line-height: 1.5vw;*/
+}
+
+.modal-opened{
+    overflow: hidden;
+}

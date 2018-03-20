@@ -1,0 +1,41 @@
+﻿.brand-header .header-text{
+    text-align:center;
+    clear:both;
+}
+
+.brand-header .header-text h2{
+    position: relative;
+    top: 6px;
+    margin-top: 0;
+}
+
+.brand-header .header-bar{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    height: 6px;
+    background-color: #0072bc;
+    width: 100%;
+    clear:both;
+}
+
+.brand-header .brand-left{
+    float: left;
+    margin-top: 5px;
+    margin-left: 8px;
+}
+
+.brand-header .brand-right{
+    margin-bottom: 5px;
+    float: right;
+    margin-right: 8px;
+}
+
+.brand-header .header-transclude{
+    margin-bottom: 8px;
+}
+
+@media only screen and (min-width : 700px) {
+    .brand-header .header-text{
+        clear:none;
+    }
+}

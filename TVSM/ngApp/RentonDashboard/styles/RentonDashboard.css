@@ -1,0 +1,149 @@
+﻿.pie-multiple{
+    width: 150px;
+    margin-right:10px;
+}
+
+.pie-multiple .totalText{
+    font-weight:bold;
+    font-size:large;
+}
+
+.pie-multiple .totalDescriptionText{
+    font-size:xx-small;
+}
+
+/*.pie-multiple .arc {
+  stroke: black;
+}*/
+
+.dashboard-top-row{
+    width: 930px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pie-row{
+    border: 1px solid gray;
+    padding: 10px;
+    height: auto;
+}
+
+.pie-row.top{
+    width: 690px;
+    height: 250px;
+    margin-bottom:10px;
+    float: left;
+}
+
+.hf-summary{
+    position: relative;
+    width: 230px;
+    height: 250px;
+    border: 1px solid gray;
+    float: left;
+    margin-right: 10px;
+}
+
+.hf-summary .pie-row-header{
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.hf-summary .summary-items{
+    padding-left: 10px;
+}
+
+.hf-summary .summary-item{
+    margin-bottom: 5px;
+    vertical-align:bottom;
+}
+
+.hf-summary .summary-value{
+    font-size:16px;
+    color: black;
+    width: 25px;
+    float:left; 
+    position: relative;
+    top: -3px;
+    cursor: pointer;
+}
+
+.hf-summary .summary-legend{
+    margin-left: 10px;
+    margin-right: 10px;
+    height:15px;
+    width:15px;
+    display:inline-block
+}
+
+.hf-summary .summary-total{
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    border-top: 1px solid gray;
+    text-align: center;
+    font-size: 16px;
+    color: black;
+    padding-top: 6px;
+
+}
+
+.pie-row.bottom{
+    width: 930px;
+    margin-bottom:10px;
+    overflow: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.pie-pan{
+    float:left;
+    width: 150px;
+}
+
+.pie-pan-holder{
+    clear:both;
+}
+
+.pie-row-header{
+    text-align: center;
+    margin-bottom: 10px;
+    clear:both;
+}
+
+.pie-row-header.bottom-row{
+    float:left;
+    margin-left: 250px;
+}
+
+.hf-conditions-legend{
+    clear:both;
+    width:550px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:10px;
+}
+
+.legend-item{
+    display:inline-block;
+    margin-left: 15px;
+}
+
+.legend-info{
+    position:relative;
+    bottom:2px;
+    margin-left: 10px;
+}
+
+.pie-label{
+    margin-right:10px;
+    text-align:center;
+    color: black;
+    font-size: large;
+}
+
+.modal th{
+    border-top: none !important;
+    font-weight: bold;
+}

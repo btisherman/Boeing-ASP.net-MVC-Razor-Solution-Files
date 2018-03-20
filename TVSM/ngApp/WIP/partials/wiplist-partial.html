@@ -1,0 +1,226 @@
+﻿<tvsm-filter-tools filters="vm.filters" special-fields="true" control="vm.filterRemote">
+    <module-head>
+        <a style="margin-right: 5px" href="" ng-click="vm.saveExcel()"><img ng-src="{{vm.server + '/common/img/Excel_Icon.gif'}}" /></a>
+    </module-head>
+    <module-footer>
+        <div style="padding:5px">
+            <a ng-click="vm.toggleGantt()" href="" class="pull-right">{{(vm.displayGantt ? 'Row' : 'Gantt') + ' View'}}</a>
+            <div style="vertical-align: middle">
+                Displaying {{vm.tools.length}} row{{vm.tools.length === 1 ? '' : 's'}}{{vm.tools && vm.tools[0].maxrows ? ' of ' + vm.tools[0].maxrows : ''}}
+                <span ng-show="vm.nextPage"> (Scroll for <span ng-click="vm.getMore()" style="text-decoration: underline; cursor: pointer">more</span>)</span>
+            </div>
+        </div>
+    </module-footer>
+</tvsm-filter-tools>
+<div ng-hide="vm.tools.length">
+    No tools available.
+</div>
+<div infinite-scroll="vm.getMore()" infinite-scroll-disabled="!vm.nextPage">
+    <div ng-repeat="tool in vm.tools" class="wip-list-items" ng-if="!vm.displayGantt">
+        <div class="wip-list-item" id="{{tool['Order ID']}}">
+            <div class="wip-cat-heading wip-cat-heading-{{tool['Tool Type'] | removeSpaces}}" title="{{tool['Tool Type']}}">
+                <span>
+                    {{tool['Tool Type']}} <!--| limitTo: 7}}-->
+                </span>
+            </div>
+            <div class="wip-inline">
+                <!--First Row-->
+                <div class="row voffset">
+                    <div class="col-sm-12">
+                        <div class="wip-condensed-table wip-inline wip-orderinfo">
+                            <table class="table table-bordered table-condensed">
+                                <tr>
+                                    <td class="wip-label text-center">Order ID</td>
+                                    <td class="wip-label text-center">Rev</td>
+                                    <td class="wip-label text-center">Unit</td>
+                                </tr>
+                                <tr>
+                                    <td><h5 title="{{tool['Order ID']}}" class="no-margin">{{tool['Order ID'] | limitTo: 8}}</h5></td>
+                                    <td><h5 class="no-margin text-center">{{tool.Rev}}</h5></td>
+                                    <td><h5 class="no-margin text-center">{{tool.Unit}}</h5></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--<div class="wip-inline wip-ordercomp">
+                            <div class="wip-label">Order Comp</div>
+                            <div class="text-center">{{(tool['Sch Comp'] | date: 'MM/dd/yyyy') || '-'}}</div>
+                        </div>-->
+                        <div class="wip-inline wip-toolnumber">
+                            <div class="wip-label">
+                                <span>Tool Number</span>
+                            </div>
+                            <div>
+                                <a title="Open in REDARS" ng-href="https://redars.web.boeing.com/redars/services/DisplayPSTDocUnitList?documentNumber={{tool['Tool Number']}}&unitType=DWG&unitId=1&partialDocNumber=false" target="_blank">
+                                    <h5 class="no-margin">
+                                        {{tool['Tool Number']}}
+                                    </h5>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="wip-inline wip-effectivity">
+                            <div class="wip-label">
+                                <span>Effectivity</span>
+                            </div>
+                            <div class="text-center">
+                                {{tool.Effectivity}}
+                            </div>
+                        </div>
+                        <div class="wip-inline wip-activityid">
+                            <div class="wip-label">
+                                <span>Activity ID</span>
+                            </div>
+                            <div>
+                                {{tool.ActivityID}}
+                            </div>
+                        </div>
+                        <div class="wip-inline wip-cc">
+                            <div class="wip-label">
+                                <span>CC</span>
+                            </div>
+                            <div>
+                                {{tool.ACCP}}
+                            </div>
+                        </div>
+                        <div class="wip-inline middle" style="min-width: 100px; text-align: center;">
+                            <span title="Program" class="wip-detail-program"><field-display field="Program" obj="tool"></field-display></span>
+                        </div>
+                        <!--<div class="wip-inline wip-program">
+                            <div class="wip-label">
+                                <span>Program</span>
+                            </div>
+                            <div>
+                                {{tool.Program}}
+                            </div>
+                        </div>-->
+                    </div><!--column-->
+                </div>
+                <!--Second Row-->
+                <div class="row">
+                    <div class="col-lg-12 wip-row2">
+                        <div class="wip-inline">
+                            <button class="btn btn-xs btn-boeing" ng-click="vm.getDetails(tool['Order ID'])">Details</button>
+                        </div>
+                        <div class="wip-inline wip-activeop">
+                            <div class="wip-label" style="text-align:left;float:left">
+                                <span>Active Operation</span>
+                            </div>
+                            <div class="wip-held pull-right">{{tool['Held For']}}</div>
+                            <div style="clear: both;">
+                                <span title="{{tool['Active Op Desc']}}" class="wip-activeop-text">{{(tool['Active Op Desc'] | limitTo:32) || '-'}}</span>
+                            </div>
+                            <!--<div>
+            <span class="wip-label">Active Op: </span>
+        </div>-->
+                        </div>
+                        <div class="wip-inline wip-project">
+                            <div class="wip-label" style="text-align:left">
+                                <span>Project</span>
+                            </div>
+                            <div class="wip-new">{{tool['Order Status']}}</div>
+                            <div style="clear: both;">
+                                <span class="wip-project-text">{{tool['Tooling Project'] || '-'}}</span>
+                            </div>
+                            <!--<div>
+            <span class="wip-label">Active Op: </span>
+        </div>-->
+                        </div>
+                        <!--<div class="wip-inline middle">
+                            <div>
+                                <span class="wip-label">Project: </span>
+                                <span>{{tool['Tooling Project'] || '-'}}</span>
+                            </div>
+                        </div>
+                        <div class="wip-inline middle" ng-show="tool.Held_For">
+                            <span class="wip-held" title="Held for {{tool['Held For']}}">{{tool['Held For']}}</span>
+                        </div>-->
+                    </div>
+                </div>
+                <!--End Second Row-->
+            </div>
+            <div class="wip-inline">
+                <div class="wip-inline wip-condensed-table wip-hourinfo">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <td style="text-align:center" colspan="2" class="wip-label">Hours</td>
+                        </tr>
+                        <tr>
+                            <td class="wip-label">Estimate</td>
+                            <td class="wip-label">Actual</td>
+                        </tr>
+                        <tr>
+                            <td><span>{{tool.TotalEst}}</span></td>
+                            <td ng-class="{'wip-background-alert': tool['Actual Est'] > tool.TotalEst}"><span>{{tool['Actual Est']}}</span></td>
+                        </tr>
+                    </table>
+                    <span class="wip-highvis" title="MES Queue">{{tool['Group Name']}}</span>
+                </div>
+            </div>
+            <div class="wip-inline">
+                <div class="wip-miscinfo">
+                    <div title="PST" class="wip-highvis wip-pst">{{tool.PST || '-'}}</div>
+                    <div title="MES Status" class="wip-highvis wip-plan-status">{{tool['Plan Status']}}</div>
+                </div>
+                <div class="wip-condensed-table wip-dateinfo">
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <td class="wip-label">Start</td>
+                            <td class="wip-label">Complete</td>
+                            <td class="wip-label">ECD</td>
+                        </tr>
+                        <tr>
+                            <td><span>{{(tool['Scheduled Start'] | date: 'd MMM yy') || '-'}}</span></td>
+                            <td ng-class="{'wip-background-alert': vm.datePast(tool['Scheduled Complete']) && !tool['Actual Complete']}"><span>{{(tool['Scheduled Complete'] | date: 'd MMM yy') || '-'}}</span></td>
+                            <td><span>{{(tool['Supplier ECD'] | date: 'd MMM yy') || '-'}}</span></td>
+                        </tr>
+                    </table>
+                    <span class="wip-highvis">{{tool['Active Op Status']}}</span>
+                </div>
+            </div>
+            <div class="wip-inline wip-percentcomp">
+                <div class="wip-label">
+                    <span>% Comp</span>
+                </div>
+                <div class="wip-value {{tool['Order Start Status']}}">
+                    {{tool['ETVS %'] + '%'}}
+                </div>
+                <div ng-show="tool['Stress_Req'] === 1" class="wip-stress">
+                    Stress
+                </div>
+            </div>
+            <div class="wip-inline">
+                <div class="wip-people">
+                    <div class="wip-person" ng-repeat="person in ['Designer', 'TIM', 'Checker', 'Releaser']">
+                        <label for="{{person}}" class="wip-person-label wip-label">{{person}}</label>
+                        <div class="wip-person-value">
+                            <input type="text" class="text-center" id="{{person}}" placeholder="-" ng-model="tool[person]" ng-disabled="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wip-inline notes">
+                <div class="wip-notes">
+                    <div class="wip-strip {{tool['Order Start Status']}}" title="Schedule Health: {{tool['Order Start Status']}}">
+                        {{ tool['Order Start Status'] | limitTo:1 }}
+                    </div>
+                    <div>
+                        <!--<div class="wip-label">
+                    <span>Notes</span>
+                </div>-->
+                        <div class="wip-value">
+                            <span ng-bind-html="tool['ETVS Notes']"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="vm.displayGantt">
+        <!--<accordion class="legend">
+            <accordion-group heading="Chart Legend" is-open="true">
+                <gantt-legend></gantt-legend>
+            </accordion-group>
+        </accordion>-->
+        <gantt-chart link="vm.clickGanttLabel(args)" data="vm.tools"></gantt-chart>
+
+    </div>
+</div>

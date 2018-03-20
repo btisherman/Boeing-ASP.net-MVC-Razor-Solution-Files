@@ -1,0 +1,50 @@
+﻿<tvsm-filter-tools filters="vm.filters">
+    <module-filters>
+    <div class="tool-filter-item">
+        <label for="periodFilter" class="control-label">Time Period</label>
+        <div style="margin-top: 12px">
+            <select id="periodFilter" class="form-control" ng-model="vm.timeGroup"
+                    ng-options="group as group.name for group in vm.timeGroups"
+                    ng-change="vm.getNewData()"></select>
+        </div>
+    </div>
+    </module-filters>
+</tvsm-filter-tools>
+<h2 class="text-center">Load Profile</h2>
+<!--{{vm.filterService.tools}}-->
+<div ng-hide="vm.data.length">
+    No tools available.
+</div>
+<div ng-if="vm.data.length" class="loadprofile-data">
+    <nvd3 options="vm.chartOptions" data="vm.tools"></nvd3>
+    <div class="table-responsive chart-data">
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                </th>
+                <th class="text-center" ng-repeat="date in vm.range">{{date | date:vm.timeGroup.display }}</th>
+            </tr>
+            <tr ng-repeat="tool in vm.tools">
+                <td class="cell-container">
+                    <div class="chart-categories">
+                        <div class="color-stripe" ng-style="{'background-color': tool.color}"></div>
+                        <strong>{{tool.key}}</strong>
+                    </div>
+                </td>
+                <td class="chart-values text-center" ng-repeat="range in tool.values">
+                    <a href="" class="text-center" ng-click="vm.getWIP(range.values[0].OrderIDs.split(','))" title="{{range.values[0].OrderIDs.split(',').length}} orders">{{range.total > 0 ? (range.total | number:1) : ''}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 0">
+                    <div class="chart-categories">
+                        <strong>Total</strong>
+                    </div>
+                </td>
+                <td class="text-center" ng-repeat="date in vm.range">{{vm.sumDate(date) | number:1}}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="circles-1" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAnCAMAAAEwb7pbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJUExURQCwUP///wAAAIblvGEAAAADdFJOU///ANfKDUEAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVDhPYxgkgHGAINhqTAwCw1V8FIyCUTAKRgFVAQMDALMgAG8Ye6ZOAAAAAElFTkSuQmCC" x="0" y="0" width="46" height="39"> </image> </pattern> </defs> </svg>

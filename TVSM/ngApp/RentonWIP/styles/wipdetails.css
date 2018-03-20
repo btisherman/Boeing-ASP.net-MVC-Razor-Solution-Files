@@ -1,0 +1,477 @@
+﻿.wip-detail-shade{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: black;
+    opacity: .5;
+}
+
+.wip-detail-shade.fullscreen{
+    display:none;
+}
+
+.wip-detail-wrapper{
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    background-color: white;
+    z-index: 10;
+    padding: 8px;
+}
+
+.wip-detail-wrapper.fullscreen{
+    border-radius: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+
+}
+
+.wip-detail-wrapper .table-header td{
+    border: none;
+}
+
+.wip-detail-wrapper .table-header td.bordered{
+    border: 1px solid #ddd;
+}
+
+.wip-detail-wrapper.fullscreen .wip-detail-close{
+    display: none;
+}
+
+.wip-detail-close{
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    color: #505050;
+    font-size: large;
+    cursor: pointer;
+}
+.wip-detail-close:before{
+    content: "X";
+}  
+  
+.wip-details{
+    padding: 5px 5px 0 30px;
+    position: relative;
+    /*min-height: 50px;*/
+    margin-bottom: 5px;
+    overflow-x: auto;
+    overflow-y:hidden;
+}
+
+.wip-title{
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.wip-serial{
+    width: 70px;
+    text-align: center;
+}
+
+.wip-cat-heading.full-border{
+    border: 1px solid darkgray;
+}
+
+.wip-originfo td{
+    text-align: center;
+}
+
+.wip-orig{
+    width: 70px;
+}
+
+.wip-aging{
+    width: 50px;
+}
+
+.wip-arlog{
+    overflow: auto;
+    margin-bottom: 8px;
+}
+
+.wip-arlog table{
+    table-layout: fixed;
+}
+
+.wip-arlog td, .wip-arlog th{
+    padding: 3px;
+    border: 1px solid #DDD;
+    text-align: center;
+}
+
+.wip-arlog th{
+    background-color: lightsteelblue;
+    color: black !important;
+}
+
+.wip-orderdateinfo{
+    text-align: center;
+}
+
+.wip-orderdateinfo td{
+    border: 1px solid #DDD;
+}
+
+.wip-ecdtable td{
+    border: 1px solid #DDD;
+}
+
+.wip-ecd-value{
+    font-size: large;
+}
+
+.wip-gateinfo{
+    margin-bottom: 8px;
+    margin-right: 0 !important;
+}
+
+.wip-gateinfo td, .wip-gateinfo th{
+    border: 1px solid #DDD;
+    text-align: center;
+}
+.wip-gateinfo th{
+    background-color: lightsteelblue;
+}
+
+.wip-info-centered{
+    width: 300px;
+    margin: auto;
+}
+
+.wip-detail-status{
+    font-weight: bold;
+    color: #BA1419;
+    font-size: x-large;
+}
+
+.wip-detail-program{
+    font-weight: bold;
+    color: #7f7f7f;
+    font-size: x-large;
+}
+
+.wip-percentcomp{
+    width: 80px;
+}
+
+.wip-percentcomp .wip-value{
+    font-size: x-large;
+    font-weight: bold;
+    /*color: #0072BC;*/
+    text-shadow:1px 1px 0 black,
+-1px -1px 0 black,
+1px -1px 0 black,
+-1px 1px 0 black,
+0px 1px 0 black,
+1px 0px 0 black,
+0px -1px 0 black,
+-1px 0px 0 black;
+    text-align: center;
+}
+
+.wip-percentcomp .wip-value.Green{
+    color: lawngreen; /*stoplight-green*/
+}
+
+.wip-percentcomp .wip-value.Yellow{
+    color: #EEEE00; /*stoplight-yellow*/
+}
+
+.wip-percentcomp .wip-value.Red{
+    color: red; /*stoplight-red*/
+     text-shadow:none;
+     font-size: 27px;
+     letter-spacing: -1px;
+}
+
+.wip-percentcomp .wip-value.Gray{
+    color: gray; /*stoplight-gray*/
+    text-shadow: none;
+    font-size: 27px;
+    letter-spacing: -1px;
+}
+
+.wip-notes.detail-notes{
+    width: 100%;
+}
+
+.wip-notes .detail-value{
+    height: 200px;
+    overflow: auto; 
+    border: 1px solid darkgray; 
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.wip-mesorders{
+    overflow: auto;
+    margin-bottom: 8px;
+}
+
+.wip-mesorders table{
+    table-layout: fixed;
+}
+
+.wip-mesorders td, .wip-mesorders th{
+    padding: 3px;
+    border: 1px solid #DDD;
+    text-align: center;
+}
+
+.wip-mesorders th{
+    background-color: lightsteelblue;
+    color: black !important;
+}
+
+.wip-ops{
+    overflow: auto;
+    margin-bottom: 8px;
+}
+
+.wip-ops table{
+    table-layout: fixed;
+
+}
+
+.wip-ops td, .wip-ops th{
+    padding: 3px;
+    text-align: center;
+    border: 1px solid #DDD;
+}
+
+.wip-ops th{
+    background-color: lightsteelblue;
+    color: black !important;
+}
+
+.wip-ops-description{
+    margin: -4px;
+    /*background-color: white;*/
+    position: relative;
+    text-align: left;
+}
+
+.wip-ops-description span{
+    display: inline-block;
+   font-weight: bold;
+   color: #0072BC;
+   margin: 2px auto 2px 15px;
+}
+
+.wip-ops-strip{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: black;
+}
+
+.wip-active-operation{
+    background-color: orange;
+    color: black;
+}
+
+.wip-active-operation td{
+    border-color: black;
+}
+
+.wip-active-operation .wip-ops-description span{
+   color: black;
+}
+
+.wip-inactive-operation{
+    background-color: #ebebeb;
+    color: black;
+}
+
+.wip-inactive-operation td{
+    /*border-color: blue;*/
+}
+
+.wip-inactive-operation .wip-ops-description span{
+   color: black;
+}
+
+.wip-sat table{
+    table-layout: fixed;
+}
+
+.wip-sat td, .wip-sat th{
+    padding: 3px;
+    border: 1px solid #DDD;
+    text-align: center;
+}
+
+.wip-sat th{
+    background-color: lightsteelblue;
+    color: black !important;
+}
+
+.wip-ncr table{
+    table-layout: fixed;
+}
+
+.wip-ncr td, .wip-ncr th{
+    padding: 3px;
+    border: 1px solid #DDD;
+    text-align: center;
+}
+
+.wip-ncr th{
+    background-color: lightsteelblue;
+    color: black !important;
+}
+
+.wip-inactive-row{
+    background-color: #EBEBEB
+}
+
+.wip-arlog .wip-background-alert{
+    color: white !important;
+}
+
+.wip-stress-box{
+    position: relative;
+    margin-top: 15px;
+    border: 1px solid darkgray;
+    width: 300px;
+    height: 60px;
+    background-color: #D1EAF0;
+    padding: 10px;
+}
+.wip-stress-box span{
+    color: black;
+    font-size: medium;
+    font-weight: bold;
+    line-height: 59px;
+}
+
+.wip-stress-box .checkboxes{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    color: black;
+    /*border: 1px solid black;*/
+    width: 70px;
+}
+
+.wip-stress-box .checkboxes div{
+    float: left;
+    margin-right: 15px;
+}
+
+.wip-stress-box label{
+    display:block;
+}
+
+    input[type=checkbox].custom-style {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+input[type=checkbox].custom-style + .cb-placeholder{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    content: " ";
+    border: 1px solid #0031A1;
+    margin-right: 10px;
+}
+
+input[type=checkbox].custom-style:checked + .cb-placeholder {
+    background-color: #0031A1;
+}
+
+input[type=checkbox].custom-style:focus + .cb-placeholder {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    border-color: #66AFE9;
+}
+
+.wip-people{
+    margin-top: 15px;
+    margin-left: 35px;
+    float: left;
+}
+
+.wip-person-label{
+    width: 50px;
+    margin-right: 5px;
+}
+
+.wip-person-value{
+    display: inline-block;
+    width: 150px;
+    height: 20px;
+}
+
+.wip-inactive-cell{
+    background-color: #dedede;
+}
+
+.wip-highlight-cell{
+    background-color: yellow;
+}
+
+.wip-typecode-SHEAR, td.wip-typecode-SAR{
+    color: white;
+    background-color: #6f3198;
+}
+
+.wip-typecode-Stress{
+    color: black;
+    background-color: #a4d5e2;
+}
+
+.wip-typecode-DE_REV{
+    color: black;
+    background-color: #f9cdaa;
+}
+
+.wip-last-touched{
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid darkgray;
+}
+
+.wip-etvs{
+    padding: 10px;
+}
+
+.wip-etvs span{
+    color: #0031A1;
+    font-size: medium;
+    margin-right: 10px;
+}
+
+.wip-etvs a{
+    margin-top: -5px;
+}
+
+@media (min-width:992px){
+    .wip-input-container {
+        margin-left: -175px;
+    }
+
+    .wip-left-column{
+        padding-right: 0;
+    }
+
+    .wip-right-column{
+        padding-left: 0;
+    }
+}

@@ -1,0 +1,57 @@
+﻿<tvsm-filter-tools filters="vm.filters"></tvsm-filter-tools>
+<div class="row">
+    <div class="col-sm-2 rc-gauge clearfix" ng-repeat="item in vm.gaugeItems" ng-class="{'col-sm-offset-1': $index === 0}">
+        <rc-gauge-display value="item.value"></rc-gauge-display>
+        <div class="rc-container">
+            <img ng-src="{{vm.server + '/common/img/' + ($index + 1) + '_a.png'}}" />
+            <div class="rc-label">{{item.label}}</div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <p style="text-align: center;">LEGEND</p>
+    </div>
+
+    <div class="container" style="margin-bottom: 5px">
+        <div class="row">
+
+            <div class="col-sm-1" style="background-color: #253746;">
+                <p style="color: #FFF; text-align:center;">POOR</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #EA002A;">
+                <p style="color: #FFF; text-align:center;">1</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #EA002A;">
+                <p style="color: #FFF; text-align:center;">2</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #EA002A;">
+                <p style="color: #FFF; text-align:center;">3</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #FFA400;">
+                <p style="text-align: center;">4</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #FFA400;">
+                <p style="text-align: center;">5</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #FFA400;">
+                <p style="text-align: center;">6</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #FFA400;">
+                <p style="text-align: center;">7</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #81BC00;">
+                <p style="color: #FFF; text-align:center;">8</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #81BC00;">
+                <p style="color: #FFF; text-align:center;">9</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #81BC00;">
+                <p style="color: #FFF; text-align:center;">10</p>
+            </div>
+            <div class="col-sm-1" style="background-color: #253746;">
+                <p style="color: #FFF; text-align:center;">GOOD</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>

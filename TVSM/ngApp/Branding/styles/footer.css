@@ -1,0 +1,47 @@
+﻿.brand-footer{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.brand-footer .footer-bar{
+    /*margin-top: 15px;*/
+    margin-bottom: 10px;
+    height: 2px;
+    background-color: gray;
+    width: 100%;
+    clear:both;
+}
+
+.brand-footer .ccv-container {
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+}
+
+.brand-footer .footer-ccv{
+    display: inline-block;
+    width: 80px;
+    border: 1px solid darkgray;
+    margin-right: 15px;
+    font-size: smaller;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+.footer-ccv.SAFETY{
+    background-color: purple;
+    color: white;
+} 
+
+.footer-ccv.COMMITTED, 
+.footer-ccv.ENG.CHANGE{
+    background-color: #40E0D0;
+} 
+
+.footer-ccv.ROUTINE, 
+.footer-ccv.TPM{
+    background-color: #0072BC;
+    color: white;
+} 

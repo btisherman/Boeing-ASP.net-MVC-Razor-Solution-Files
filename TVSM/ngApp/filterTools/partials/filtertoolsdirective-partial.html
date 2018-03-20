@@ -1,0 +1,59 @@
+﻿<div class="tool-filter-container">
+    <div class="tool-filter-heading clearfix">
+        <span style="margin-right: 20px"><a href="#/">Home</a></span><span><a href="" ng-click="fvm.predefined = !fvm.predefined">{{fvm.predefined ? 'Predefined Filter' : 'Manual Filter'}}</a></span><span class="filter-caret" ng-class="{open: !fvm.filterService.displayFilter}" ng-click="fvm.filterService.displayFilter = !fvm.filterService.displayFilter"></span>
+        <span ng-if="fvm.selectedTemplate.display !== 'NONE'">{{fvm.selectedTemplate.display}}</span>
+        <div class="pull-right">
+            <span class="badge filter-tools-count">{{fvm.resultCount}}</span>
+            <div class="pull-left" ng-transclude="head"></div>
+        </div>
+    </div>
+    <div class="tool-filter-content clearfix" ng-show="fvm.filterService.displayFilter">
+        <div class="tool-filter-items" ng-show="!fvm.predefined">
+            <div class="tool-filter-item" ng-repeat="field in fvm.fields" ng-if="field.display">
+                <!--class="col-sm-2"-->
+                <label for="filter{{field.display}}" class="control-label" ng-class="{'selected-filter': fvm.selected[field.field].length}">{{field.display}}</label>
+                <div ng-if="!field.values.length">
+                    <div class="clearfix">
+                        <span class="filter-action pull-left" ng-click="fvm.selected[field.field] = fvm.values[field.field]; fvm.executeFieldQuery($index)">ALL</span>
+                        <span class="filter-action pull-right" ng-click="fvm.clearSelection($index)">NONE</span>
+                    </div>
+                    <div class="input-group">
+                        <select ng-style="{'min-width':field.width || '100px', height:field.height || '80px'}" id="filter{{field.display}}" class="form-control" ng-model="fvm.selected[field.field]"
+                                ng-options="fvm.getFieldValue(field, item) as fvm.getFieldLabel(field, item) for item in fvm.values[field.field]" ng-model-options="{ updateOn: 'change', debounce: { change: 0 } }"
+                                ng-multiple="true" ng-change="fvm.executeFieldQuery($index)" multiple></select>
+                    </div>
+                </div>
+                <div class="checkbox-filter-items" ng-if="field.values.length">
+                    <tvsm-checkbox-array select="fvm.selected[field.field]" values="field.values" updated="fvm.executeFieldQuery($index)" watch="fvm.updateCheckBoxes" subtext="field.subtext"></tvsm-checkbox-array>
+                </div>
+            </div>
+            <div class="tool-filter-item" ng-if="fvm.specialFields" style="vertical-align: top; width: 125px; text-align: center">
+                <label ng-class="{'selected-filter': fvm.selected['Order Start Status']}">Schedule Health</label>
+                <pie-chart data="fvm.pieData" pie-click="fvm.pieClick(tools, cat)" ></pie-chart>
+            </div>
+            <div class="tool-filter-item" style="vertical-align: top" ng-transclude="filters"></div>
+        </div>
+        <div ng-show="fvm.predefined">
+            <label for="predefinedFilter" class="control-label">Predefined Filters</label>
+            <ul class="predefined-filters">
+                <li class="predefined-filter-item" ng-click="fvm.setSelect($index)" ng-repeat="item in fvm.templates">{{item.display}}</li>
+            </ul>
+            <!--<select class="form-control" ng-model="fvm.selectedTemplate" id="predefinedFilter"
+                    ng-options="item as item.display for item in fvm.templates"
+                    ng-change="fvm.setSelect()"></select>-->
+        </div>
+        <div ng-transclude="body"></div>
+    </div>
+    <div class="tool-filter-rollup" ng-show="!fvm.filterService.displayFilter">
+        <div class="tool-filter-items">
+            <div class="tool-filter-rollup-item" ng-repeat="field in fvm.fields" ng-if="fvm.selected[field.field] && field.display">
+                <strong>{{field.display}}:</strong> {{fvm.selected[field.field] | printArray}}
+            </div>
+            <div class="tool-filter-rollup-item" ng-if="fvm.selected['Order Start Status'] && fvm.specialFields">
+                <strong>Schedule Health:</strong> {{fvm.selected['Order Start Status'] | printArray}}
+            </div>
+        </div>
+        <div ng-transclude="summary"></div>
+    </div>
+    <div class="clearfix" ng-transclude="footer"></div>    
+</div>

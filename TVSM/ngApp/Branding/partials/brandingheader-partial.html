@@ -1,0 +1,12 @@
+﻿<!-- begin header -->
+<div class="brand-header">
+        <div>
+            <div class="brand-left" ng-hide="vm.hidePictures">
+                <div><img style="width: 100px" ng-src="{{vm.server}}/common/img/boeinglogo.gif" alt="Boeing"></div>
+            </div>
+            <div class="brand-right" ng-hide="vm.hidePictures"><img style="width: 100px" ng-src="{{vm.server}}/common/img/bz_generic.gif"></div>
+            <div class="header-text" ng-transclude="title"></div>
+        </div>
+    <div class="header-bar"></div>
+    <div class="header-transclude" ng-transclude="body"></div>
+</div>

@@ -1,0 +1,343 @@
+﻿.wip-list-items:nth-child(odd){
+    background-color: #EDF7F9;
+}
+
+.wip-list-item{
+    border: 1px solid darkgray;
+    padding: 5px 5px 0 30px;
+    position: relative;
+    /*min-height: 50px;*/
+    margin-bottom: 5px;
+}
+
+
+.wip-cat-heading {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 25px;
+    position: absolute;
+    border-right: 1px solid darkgray;
+    background-color: white;
+}
+
+    .wip-cat-heading span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+        -ms-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+        -o-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+        -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+        transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+@media only screen and (min-width : 1650px) {
+    .wip-cat-heading span {
+        font-size: x-small;
+    }
+}
+
+.wip-cat-heading-SAFETY{
+    background-color: purple;
+    color: white;
+} 
+
+.wip-cat-heading-COMMITTED, 
+.wip-cat-heading-ENGCHG{
+    background-color: #40E0D0;
+    color: black;
+} 
+
+.wip-condensed-table{
+    display: inline-table;
+}
+
+.wip-condensed-table table{
+    margin: 0;
+}
+
+.wip-condensed-table td{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.voffset{
+    margin-bottom: 5px;
+}
+
+.wip-label{
+    font-size: smaller;
+    font-weight: bold;
+    color: #5c5858;
+    text-align: center;
+}
+.wip-inline{
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 8px;
+    color: black;
+}
+.wip-inline.middle{
+    position: relative;
+    top: 2px;
+}
+
+.btn-priority:hover {
+    color: #FFF;
+    background-color: red;
+    border-color: #0033A1;
+    width: 113px;
+}
+
+.btn-priority {
+    color: #FFF;
+    background-color: #0033A1;
+    border-color: #0033A1;
+    width: 113px;
+}
+
+.btn-boeing:hover {
+    color: #FFF;
+    background-color: red;
+    border-color: #0033A1;
+}
+
+.btn-boeing {
+    color: #FFF;
+    background-color: #0033A1;
+    border-color: #0033A1;
+}
+
+.wip-activeop-text{
+    color: darkorange;
+    font-weight: bold;
+}
+
+.wip-held{
+    color: red;
+    font-weight:900;
+
+}
+
+.no-margin{
+    margin: 0;
+}
+
+.wip-orderinfo{
+    width: 125px;
+}
+
+.wip-ordercomp{
+    width: 60px;
+    text-align: center;
+}
+
+.wip-toolnumber{
+    width: 150px;
+    text-align: center;
+}
+
+.wip-effectivity{
+    width: 80px;
+    text-align: center;
+}
+
+.wip-activityid{
+    width: 70px;
+    text-align: center;
+}
+
+.wip-cc{
+    width: 30px;
+    text-align: center;
+}
+
+.wip-program{
+    width: 60px;
+    text-align: center;
+}
+
+.wip-highvis{
+    color: #af0505;
+    font-weight: bold;
+    font-size: small;
+    vertical-align: top;
+}
+
+.wip-background-alert{
+    background-color: red !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.wip-miscinfo{
+    position: relative;
+    line-height: 1.2em;
+    height: 15px;
+}
+.wip-pst{
+    position: absolute;
+    left: 0;
+    display: inline-block;
+}
+.wip-plan-status{
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    width: 71px;
+}
+
+.wip-row2{
+   text-align: left;
+   margin-bottom: 5px;
+}
+
+.wip-activeop{
+    display: inline-block;
+    width: 230px;
+    text-align: left;
+}
+
+.wip-hourinfo{
+    display: inline-block;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.wip-hourinfo td{
+    width: 50px;
+}
+
+.wip-dateinfo{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.wip-dateinfo td{
+    width: 70px;
+}
+
+.wip-notes{
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.wip-inline.notes{
+    display: block;
+}
+
+@media only screen and (min-width : 885px) {
+    .wip-notes{
+        width: 800px;
+    }
+    .wip-inline.notes{
+    display: inline-block;
+}
+}
+
+@media only screen and (min-width : 1715px) {
+    .wip-notes{
+        width: 400px;
+    }
+}
+
+.wip-notes .wip-strip{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0;
+    /*height: 59px;*/
+    width: 10px;
+    text-align: center;
+}
+.wip-notes .wip-value{
+    padding: 2px;
+    margin-left: 15px;
+    height: 69px;
+    border: 1px solid darkgray;
+    overflow: auto;
+}
+
+.wip-strip.Green{
+    background-color: lawngreen; /*stoplight-green*/
+}
+
+.wip-strip.Red{
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+.wip-strip.Yellow{
+    background-color: #ebeb00;
+}
+
+.wip-strip.Gray{
+    background-color: gray;
+    color: white;
+}
+
+
+.wip-inline .wip-people{
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 8px;
+}
+
+.wip-inline .wip-person-label{
+    width: 50px;
+    margin-right: 5px;
+    margin-bottom: 0;
+    text-align: end;
+}
+
+.wip-inline .wip-person-value{
+    display: inline-block;
+    width: 125px;
+    height: 10px;
+    line-height: 10px;
+    font-size: smaller;
+}
+
+.wip-person-value input {
+    width: 125px;
+}
+
+.wip-inline.wip-percentcomp .wip-value{
+    margin-top: -5px;
+}
+
+.wip-stress{
+    width: 50px;
+    height: 15px;
+    background-color: yellow;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+.wip-project{
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    width: 270px;
+}
+
+.wip-project-text{
+       color: darkorange;
+    font-weight: bold;
+}
+
+.wip-new{
+    position: absolute;
+    right: 0;
+    top: -2px;
+    color: red;
+    width: 65px;
+    font-weight: bold;
+}

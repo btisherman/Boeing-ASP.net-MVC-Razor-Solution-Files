@@ -1,0 +1,41 @@
+﻿@using System.Web.Configuration
+@using System.Web.Optimization
+
+@model TVSM.Models.UserInfo
+
+@{
+    ViewBag.Title = "Home";
+}
+<div style="overflow-x:auto">
+    <div ng-view></div>
+</div>
+
+
+
+@section scripts{
+<script>var server = '@WebConfigurationManager.AppSettings["Server"]';</script>
+@Scripts.Render("~/bundles/angular")
+@Scripts.Render("~/bundles/d3")
+<script>
+    d3.custom = {};
+</script>
+@*<script src="https://eaas-tableau-preproduction.web.boeing.com/javascripts/api/tableau-2.js"></script>*@
+@Scripts.Render("~/bundles/app")
+@Scripts.Render("~/bundles/partials")
+@*<script src="@getBaseFromConfig("~/Scripts/jquery.signalR-2.2.0.js")"></script>
+<script src="@getBaseFromConfig("~/signalr/hubs")"></script>*@
+<script src="https://insite.web.boeing.com/culture/js/widgets/widgetsjs.js" type="text/javascript"></script>
+<script src="https://insite.web.boeing.com/culture/js/widgets/hovercard.js" type="text/javascript"></script>
+}
+
+@section styles{
+@Styles.Render("~/css/custom")
+}
+
+@functions{
+    public string getBaseFromConfig(string url){
+        var basePath = WebConfigurationManager.AppSettings["Server"];
+        return url.Replace("~", basePath);
+    }
+}
+

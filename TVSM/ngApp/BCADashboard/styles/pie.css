@@ -1,0 +1,55 @@
+﻿.DashApp .YellowPie{
+    fill: #f1cd34
+}
+.DashApp .RedPie{
+    fill: #d83131
+}
+.DashApp .GreenPie{
+    fill: #4ac04a
+}
+.DashApp .GrayPie{
+    fill: gray
+}
+.DashApp .arc path {
+  stroke: #f5f5f5;
+}
+.DashApp .mainPie{
+    margin: auto;
+    width: 35%;
+}
+.DashApp .mainPie svg{
+    margin: auto;
+}
+.DashApp .miniPie{
+    margin: auto;
+    width: 80%;
+}
+.DashApp .sliceLabel{
+    pointer-events:none;
+}
+
+.DashApp .chartLabel{
+    font-size:1.5em;
+}
+@media only screen and (max-width: 767px) {
+    /* For mobile phones: */
+    .DashApp .mainPie {
+        width: 80%;
+    }
+}
+.DashApp .legend .panel{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.DashApp .legend .panel-group{
+    margin-bottom: 0;
+}
+
+.DashApp .legend .panel-title a{
+    color:#0033a1;
+}
+
+.DashApp .legend .table{
+    margin-bottom: 0;
+}

@@ -1,0 +1,153 @@
+﻿<h1 class="text-center">{{vm.heading}}</h1>
+<div class="text-center" style="margin-bottom:10px">
+    <button class="btn btn-default" ng-class="{'btn-primary': vm.area == 'backshop'}" ng-click="vm.setArea('backshop')">Back Shops</button>
+    <button class="btn btn-default" ng-class="{'btn-primary': vm.area == 'wings'}" ng-click="vm.setArea('wings')">Area 3</button>
+    <button class="btn btn-default" ng-class="{'btn-primary': vm.area == 'final'}" ng-click="vm.setArea('final')">Area 9</button>
+    <button class="btn btn-default" ng-class="{'btn-primary': vm.area == 'all'}" ng-click="vm.setArea('all')">All</button>
+    <button style="margin-left: 25px" class="btn btn-default" ng-class="{'btn-primary': vm.showPercentage}" ng-click="vm.togglePercentage()">Percentages</button>
+</div>
+<div class="dashboard-top-row">
+    <div class="hf-summary">
+        <h2 class="pie-row-header">MES H/F CONDITIONS SUMMARY</h2>
+        <div class="summary-items">
+            <div class="summary-item">
+                <span class="summary-value" ng-click="vm.getSummaryOrders('Green')">{{vm.summaryData.Green}}</span><div class="GreenPie summary-legend"></div> More than a week left in schedule
+            </div>
+            <div class="summary-item">
+                <span class="summary-value" ng-click="vm.getSummaryOrders('Yellow')">{{vm.summaryData.Yellow}}</span><div class="YellowPie summary-legend"></div> Less than a week left in schedule
+            </div>
+            <div class="summary-item">
+                <span class="summary-value" ng-click="vm.getSummaryOrders('Red')">{{vm.summaryData.Red}}</span><div class="RedPie summary-legend"></div> Delinquent order
+            </div>
+        </div>
+        <div class="summary-total">{{vm.summaryTotal()}} Total Held</div>
+    </div>
+    <div class="pie-row top">
+        <h2 class="pie-row-header">SHOP HEALTH</h2>
+        <div class="pie-pan" ng-repeat="pie in vm.pieData">
+            <div class="pie-label">{{pie.label}} <button class="btn btn-default btn-xs" ng-if="pie.legend" ng-click="pie.isFlipped = !pie.isFlipped" ng-class="{'btn-primary': pie.isFlipped}">{{pie.isFlipped ? 'x' : '?'}}</button></div>
+            <flipper flipped="pie.isFlipped" horizontal>
+                <front>
+                    <div ng-show="pie.message" style="color:red">{{pie.message}}</div>
+                    <renton-dashboard-pie-chart style="{{$last ? 'margin-right:0' : ''}}" class="pie-multiple" data="pie.data" config="vm.pieConfig" pie-click="vm.pieClick" pie-id="{{pie.label}}"></renton-dashboard-pie-chart>
+                </front>
+                <back>
+                    <div class="GreenPie" style="height:15px;width:15px"></div>{{pie.legend.Green}}
+                    <div class="YellowPie" style="height:15px;width:15px"></div>{{pie.legend.Yellow}}
+                    <div class="RedPie" style="height:15px;width:15px"></div>{{pie.legend.Red}}
+                </back>
+            </flipper>
+        </div>
+    </div>
+</div>
+<div class="pie-row bottom">
+    <h2 class="pie-row-header bottom-row">MES H/F CONDITIONS - AGING</h2><button class="btn btn-default btn-xs" style="margin-left:10px; float:left;position:relative;top:10px" ng-click="vm.flipHeld = !vm.flipHeld" ng-class="{'btn-primary': vm.flipHeld}">{{vm.flipHeld ? 'x' : '?'}}</button>
+    <div class="hf-conditions-legend" uib-collapse="!vm.flipHeld">
+        <div class="legend-item">
+            <div class="GreenPie" style="height:15px;width:15px;display:inline-block"></div><span class="legend-info">Held 5 days or less</span>
+        </div>
+        <div class="legend-item">
+            <div class="YellowPie" style="height:15px;width:15px;display:inline-block"></div><span class="legend-info">Held between 5 and 10 days </span>
+        </div>
+        <div class="legend-item">
+            <div class="RedPie" style="height:15px;width:15px;display:inline-block"></div><span class="legend-info">Held more than 10 days</span>
+        </div>
+    </div>
+    <div class="pie-pan-holder">
+        <div class="pie-pan" ng-repeat="pie in vm.pieData2">
+            <div class="pie-label">{{pie.label}}</div>
+            <renton-dashboard-pie-chart style="{{$last ? 'margin-right:0' : ''}}" class="pie-multiple" data="pie.data" config="vm.pieConfig" pie-click="vm.pieClick" pie-id="{{'HF_' + pie.label}}"></renton-dashboard-pie-chart>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="parModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">PAR List</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>PAR</th>
+                        <th>Aged</th>
+                        <th>Health</th>
+                    </tr>
+                    <tr ng-repeat="par in vm.parModalData | orderBy:'-ElapsedDays'">
+                        <td><a target="_blank" href="https://arlog.web.boeing.com/request_view.cfm?ID={{par.id}}">{{par.id}}</a></td>
+                        <td>{{par.ElapsedDays}}</td>
+                        <td>{{par.Health}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="tpmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">TPM List</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>TPM</th>
+                        <th>Tool</th>
+                        <th>Unit</th>
+                        <th>Type</th>
+                        <th>Due</th>
+                    </tr>
+                    <tr ng-repeat="obj in vm.tpmModalData | orderBy:'Due'">
+                        <td>{{obj.Id}}</td>
+                        <td>{{obj.ToolType + obj.ToolNumber}}</td>
+                        <td>{{obj.UnitNo}}</td>
+                        <td>{{obj.Type}}</td>
+                        <td>{{obj.Due | date:short}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="ncoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">NCO List</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>NCO</th>
+                        <th>Title</th>
+                        <th>Aged</th>
+                        <th>Assigned To</th>
+                    </tr>
+                    <tr ng-repeat="obj in vm.ncoModalData | orderBy:'Aged'">
+                        <td><a target="_blank" href="http://owi.ca.boeing.com/OWIWebViewer/controller?page=ORDERVIEW&order_key={{obj.KeyId}}">{{obj.Id}}</a></td>
+                        <td>{{obj.PLAN_TITLE}}</td>
+                        <td>{{obj.Aged * -1}}</td>
+                        <td>{{obj.ASSIGNED_TO_NM}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
